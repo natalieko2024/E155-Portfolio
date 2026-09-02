@@ -1,0 +1,10 @@
+---
+title: "Hello Quarto"
+description: "Welcome to my Quarto portfolio"
+author: "Natalie Ko"
+date: "09/01/2026"
+categories:
+  - reflection
+  - labreport
+draft: false
+---

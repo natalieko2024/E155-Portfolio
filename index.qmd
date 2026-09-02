@@ -1,0 +1,18 @@
+---
+title: "E155 Portfolio"
+image: images/headshot.jpeg
+about:
+    template: jolla
+    links:
+        - icon: linkedin
+          text: LinkedIn
+          href: https://www.linkedin.com/in/ko12nat
+        - icon: github
+          text: Github
+          href: https://github.com/natalieko2024
+---
+
+Natalie Ko is an Engineering Major at [Harvey Mudd College](https://hmc.edu) with a Science, Technology, and Society concentration. She's interested in mechatronics and robotics. On campus, she works as a Repair Steward for Harvey Mudd's Makerspace, CAD Lab TA/Grutor/Designer for the E4 course, and Shop Proctor for the Machine Shop.
+
+When Natalie isn't working on coursework or on-campus jobs, she works on other cool Engineering personal projects, including iterating on functional Spiderman web-shooters since 2018. She's primarily drawn to projects that help foster a more accessible world.
+
