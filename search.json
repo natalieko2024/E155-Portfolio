@@ -4,7 +4,63 @@
     "href": "blog.html",
     "title": "E155 Blog",
     "section": "",
-    "text": "Hello Quarto\n\n\nWelcome to my Quarto portfolio\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
+    "text": "Lab 1 Report\n\n\nLab Report for E155 Lab 1\n\n\n\n\n\nSep 2, 2026\n\n\nNatalie Ko\n\n\n\n\n\n\n\n\n\n\n\n\nHello Quarto\n\n\nWelcome to my Quarto portfolio\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/lab1-report.html",
+    "href": "posts/lab1-report.html",
+    "title": "Lab 1 Report",
+    "section": "",
+    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of switch inputs."
+  },
+  {
+    "objectID": "posts/lab1-report.html#introduction",
+    "href": "posts/lab1-report.html#introduction",
+    "title": "Lab 1 Report",
+    "section": "",
+    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of switch inputs."
+  },
+  {
+    "objectID": "posts/lab1-report.html#design-and-testing-methodology",
+    "href": "posts/lab1-report.html#design-and-testing-methodology",
+    "title": "Lab 1 Report",
+    "section": "Design and Testing Methodology",
+    "text": "Design and Testing Methodology"
+  },
+  {
+    "objectID": "posts/lab1-report.html#technical-documentation",
+    "href": "posts/lab1-report.html#technical-documentation",
+    "title": "Lab 1 Report",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation"
+  },
+  {
+    "objectID": "posts/lab1-report.html#results-and-discussion",
+    "href": "posts/lab1-report.html#results-and-discussion",
+    "title": "Lab 1 Report",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion"
+  },
+  {
+    "objectID": "posts/lab1-report.html#conclusion",
+    "href": "posts/lab1-report.html#conclusion",
+    "title": "Lab 1 Report",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "posts/first-post.html#design-and-testing-methodology",
+    "href": "posts/first-post.html#design-and-testing-methodology",
+    "title": "Hello Quarto",
+    "section": "Design and Testing Methodology",
+    "text": "Design and Testing Methodology"
+  },
+  {
+    "objectID": "posts/first-post.html#technical-documentation",
+    "href": "posts/first-post.html#technical-documentation",
+    "title": "Hello Quarto",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation"
   },
   {
     "objectID": "index.html",
