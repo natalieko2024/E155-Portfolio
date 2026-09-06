@@ -1,5 +1,5 @@
 ---
-title: "Lab 1 Report"
+title: "Lab 1 Report: FPGA and MCU Setup and Testing"
 description: "Lab Report for E155 Lab 1"
 author: "Natalie Ko"
 date: "09/02/2026"
@@ -9,10 +9,10 @@ categories:
 draft: false
 ---
 ## Introduction
-In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of switch inputs.
+In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs.
 
 ## Design and Testing Methodology
-
+To design the LED and 7-segment display implementation, 
 modules etc.
 
 The design was first tested using waveform simulation in QuestaSim
@@ -28,8 +28,9 @@ Finally, the 7-segment display circuit was built and connected to the FPGA GPIO 
 
 # Testbench Simulation
 
+# Oscilloscope Testing
 
 ## Conclusion
-I have spent 24 hours on this lab so far (but some of the hours were trying to debug software issues with Lattice Radiant)
+I have spent 24 hours on this lab so far (but some of the hours were trying to debug software issues with Lattice Radiant and QuestaSim).
 
 ## AI Prototype Summary

@@ -1,0 +1,23 @@
+---
+title: "E155 Lab Reports"
+---
+## Lab 1: MCU and FPGA Assembly and Testing
+[Lab 1 report here](https://natalieko2024.github.io/E155-Portfolio/labs/lab1/lab1-report.html) 
+
+## Lab 2: Multiplexed 7-Segment Display
+Lab 2 report coming soon!
+
+## Lab 3: Keypad Scanner
+Lab 3 report coming soon!
+
+## Lab 4: Digital Audio
+Lab 4 report coming soon!
+
+## Lab 5: Interrupts
+Lab 5 report coming soon!
+
+## Lab 6: The Internet of Things and Serial Peripheral Interface
+Lab 6 report coming soon!
+
+## Lab 7: The Advanced Encryption Standard
+Lab 7 report coming soon!

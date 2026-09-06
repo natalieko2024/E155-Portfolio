@@ -1,6 +1,6 @@
 ---
-title: "Hello Quarto"
-description: "Welcome to my Quarto portfolio"
+title: "First Post: Excited for MicroPs!"
+description: "Looking forward to this semester"
 author: "Natalie Ko"
 date: "09/01/2026"
 categories:
