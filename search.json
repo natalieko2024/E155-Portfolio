@@ -4,61 +4,75 @@
     "href": "blog.html",
     "title": "E155 Blog",
     "section": "",
-    "text": "Lab 1 Report\n\n\nLab Report for E155 Lab 1\n\n\n\n\n\nSep 2, 2026\n\n\nNatalie Ko\n\n\n\n\n\n\n\n\n\n\n\n\nHello Quarto\n\n\nWelcome to my Quarto portfolio\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
+    "text": "First Post: Excited for MicroPs\n\n\nWelcome to my Quarto portfolio\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/lab1-report.html",
-    "href": "posts/lab1-report.html",
-    "title": "Lab 1 Report",
+    "objectID": "labs.html",
+    "href": "labs.html",
+    "title": "E155 Lab Reports",
     "section": "",
-    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of switch inputs."
+    "text": "Lab 1 Report: FPGA and MCU Setup and Testing\n\n\nLab Report for E155 Lab 1\n\n\n\n\n\nSep 2, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/lab1-report.html#introduction",
-    "href": "posts/lab1-report.html#introduction",
-    "title": "Lab 1 Report",
+    "objectID": "labs/lab1/lab1-report.html",
+    "href": "labs/lab1/lab1-report.html",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "",
-    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of switch inputs."
+    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
   },
   {
-    "objectID": "posts/lab1-report.html#design-and-testing-methodology",
-    "href": "posts/lab1-report.html#design-and-testing-methodology",
-    "title": "Lab 1 Report",
+    "objectID": "labs/lab1/lab1-report.html#introduction",
+    "href": "labs/lab1/lab1-report.html#introduction",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "",
+    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#design-and-testing-methodology",
+    "href": "labs/lab1/lab1-report.html#design-and-testing-methodology",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Design and Testing Methodology",
-    "text": "Design and Testing Methodology"
+    "text": "Design and Testing Methodology\nTo design the LED and 7-segment display implementation, modules etc.\nThe design was first tested using waveform simulation in QuestaSim\nThen, several testbenches were written and run to confirm the outputs of each sub-module and the top-level module in each possible input case.\nFinally, the 7-segment display circuit was built and connected to the FPGA GPIO pins, and the full design was uploaded to the FPGA and deployed on the hardware. The design was tested by toggling the switches to account for all cases and observing the LED and 7-segment display outputs ton confirm functionality."
   },
   {
-    "objectID": "posts/lab1-report.html#technical-documentation",
-    "href": "posts/lab1-report.html#technical-documentation",
-    "title": "Lab 1 Report",
+    "objectID": "labs/lab1/lab1-report.html#technical-documentation",
+    "href": "labs/lab1/lab1-report.html#technical-documentation",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Technical Documentation",
     "text": "Technical Documentation"
   },
   {
-    "objectID": "posts/lab1-report.html#results-and-discussion",
-    "href": "posts/lab1-report.html#results-and-discussion",
-    "title": "Lab 1 Report",
+    "objectID": "labs/lab1/lab1-report.html#results-and-discussion",
+    "href": "labs/lab1/lab1-report.html#results-and-discussion",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Results and Discussion",
     "text": "Results and Discussion"
   },
   {
-    "objectID": "posts/lab1-report.html#conclusion",
-    "href": "posts/lab1-report.html#conclusion",
-    "title": "Lab 1 Report",
+    "objectID": "labs/lab1/lab1-report.html#conclusion",
+    "href": "labs/lab1/lab1-report.html#conclusion",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Conclusion",
-    "text": "Conclusion"
+    "text": "Conclusion\nI have spent 24 hours on this lab so far (but some of the hours were trying to debug software issues with Lattice Radiant and QuestaSim)."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#ai-prototype-summary",
+    "href": "labs/lab1/lab1-report.html#ai-prototype-summary",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary"
   },
   {
     "objectID": "posts/first-post.html#design-and-testing-methodology",
     "href": "posts/first-post.html#design-and-testing-methodology",
-    "title": "Hello Quarto",
+    "title": "First Post: Excited for MicroPs",
     "section": "Design and Testing Methodology",
     "text": "Design and Testing Methodology"
   },
   {
     "objectID": "posts/first-post.html#technical-documentation",
     "href": "posts/first-post.html#technical-documentation",
-    "title": "Hello Quarto",
+    "title": "First Post: Excited for MicroPs",
     "section": "Technical Documentation",
     "text": "Technical Documentation"
   },
