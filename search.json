@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "E155 Blog",
     "section": "",
-    "text": "No matching items"
+    "text": "Lab 1 Report: FPGA and MCU Setup and Testing\n\n\nLab Report for E155 Lab 1\n\n\n\n\n\nSep 6, 2026\n\n\nNatalie Ko\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 1 Reflections\n\n\nBuilding my development board and programming in Verilog\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\n\n\n\n\n\n\n\nFirst Post: Excited for MicroPs!\n\n\nLooking forward to this semester\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -14,64 +14,64 @@
     "text": "Natalie Ko is an Engineering Major at Harvey Mudd College with a Science, Technology, and Society concentration. She’s interested in mechatronics and robotics. On campus, she works as a Repair Steward for Harvey Mudd’s Makerspace, CAD Lab TA/Grutor/Designer for the E4 course, and Shop Proctor for the Machine Shop.\nWhen Natalie isn’t working on coursework or on-campus jobs, she works on other cool Engineering personal projects, including iterating on functional Spiderman web-shooters since 2018. She’s primarily drawn to projects that help foster a more accessible world."
   },
   {
-    "objectID": "labs:/lab1:/lab1-report.html",
-    "href": "labs:/lab1:/lab1-report.html",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "",
-    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
-  },
-  {
-    "objectID": "labs:/lab1:/lab1-report.html#introduction",
-    "href": "labs:/lab1:/lab1-report.html#introduction",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "",
-    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
-  },
-  {
-    "objectID": "labs:/lab1:/lab1-report.html#design-and-testing-methodology",
-    "href": "labs:/lab1:/lab1-report.html#design-and-testing-methodology",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "Design and Testing Methodology",
-    "text": "Design and Testing Methodology\nTo design the LED and 7-segment display implementation, two submodules were created and linked by a top-level module. The top level module included combinational logic to control two of the on-board LEDs based on four switch inputs, and called the two submodules and HSOSC to control the oscillating on-board LED and the 7-segment display.\nOne submodule controled a counter that would “step down” the 24MHz clock generated from the HSOSC to a 2.4Hz clock. The maximum count value of the counter was calculated as shown in Figure 1.\n\n\n\nFigure 1. Counter maximum count value calculation\n\n\nThe counter was also given a reset and enable input for additional functionality in case the submodule needs to be used in a future design. The reset, tied to a button input, resets the counter to 0 when pressed. The enable input, tied to a constant high signal from the top-level module, allows the counter to run as expected when high and hold its current value when low. When the counter reached the maximum count value, it reset to 0 and inverted the output signal. This would act as the on-board LED toggle.\nThe other submodule implemented the combinational logic to control the 7-segment display based on the 4 switch inputs. Because of the large number of output signals, the combinational logic was implemented using a case statement instead of a series of implied logic gates.\nThe design was first tested manually using waveform simulation of the top-level module in QuestaSim to look at the top-level outputs for each switch combination.\nThen, several testbenches were written and run to confirm the outputs of each sub-module and the top-level module in each possible input case.\n[elaborate on each testbench]\nFinally, the 7-segment display circuit was built and connected to the FPGA GPIO pins, and the full design was uploaded to the FPGA and deployed on the hardware. The design was tested by toggling the switches to account for all cases and observing the LED and 7-segment display outputs ton confirm functionality.\nTo implement this design on hardware, the GPIO pins needed to be connected to current-limiting resistors before the 7-segment display diodes. The resistor values were calculated as shown in Figure 2.\n\n\n\nFigure 2. Current-limiting resistor calculation"
-  },
-  {
-    "objectID": "labs:/lab1:/lab1-report.html#technical-documentation",
-    "href": "labs:/lab1:/lab1-report.html#technical-documentation",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe source code for the project can be found in the associated GitHub repository."
-  },
-  {
-    "objectID": "labs:/lab1:/lab1-report.html#results-and-discussion",
-    "href": "labs:/lab1:/lab1-report.html#results-and-discussion",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nThe design met all intended design objectives."
-  },
-  {
-    "objectID": "labs:/lab1:/lab1-report.html#conclusion",
-    "href": "labs:/lab1:/lab1-report.html#conclusion",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "Conclusion",
-    "text": "Conclusion\nThe design successfully oscillated an on-board LED at 2.4Hz, and the 7-segment display and the two other on-board LEDs were successfully controlled by the four switch inputs. It worked both in all simulation testing and physical testing with the hardware.\nI spent around 28 hours working on this lab (but most of the hours were trying to debug software issues with Lattice Radiant and QuestaSim)."
-  },
-  {
-    "objectID": "labs:/lab1:/lab1-report.html#ai-prototype-summary",
-    "href": "labs:/lab1:/lab1-report.html#ai-prototype-summary",
-    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary"
-  },
-  {
-    "objectID": "posts:/first-post.html",
-    "href": "posts:/first-post.html",
+    "objectID": "posts/first-post.html",
+    "href": "posts/first-post.html",
     "title": "First Post: Excited for MicroPs!",
     "section": "",
     "text": "I’m really excited to be taking MicroPs this semester! As someone who is primarily interested in robotics and mechatronics, I’m excited to learn how to use microcontrollers and FPGAs to control different hardware. Especially since this is a project-based course (which I generally like more than courses which rely on exams), I’m excited to get hands-on experience learning how to implement different designs and ultimately diversify my project portfolio away from mainly mechanical projects.\nI also enjoyed the content in E85, so I think it will be interesting expanding on some of the concepts I learned in that course."
   },
   {
-    "objectID": "posts:/week1-reflections.html#reflections-on-lab",
-    "href": "posts:/week1-reflections.html#reflections-on-lab",
+    "objectID": "labs/lab1/lab1-report.html",
+    "href": "labs/lab1/lab1-report.html",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "",
+    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#introduction",
+    "href": "labs/lab1/lab1-report.html#introduction",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "",
+    "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#design-and-testing-methodology",
+    "href": "labs/lab1/lab1-report.html#design-and-testing-methodology",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "Design and Testing Methodology",
+    "text": "Design and Testing Methodology\nTo design the LED and 7-segment display implementation, two submodules were created and linked by a top-level module. The top level module included combinational logic to control two of the on-board LEDs based on four switch inputs, and called the two submodules and HSOSC to control the oscillating on-board LED and the 7-segment display.\nOne submodule controled a counter that would “step down” the 24MHz clock generated from the HSOSC to a 2.4Hz clock. The maximum count value of the counter was calculated as shown in Figure 1.\n\n\n\nFigure 1. Counter maximum count value calculation\n\n\nThe counter was also given a reset and enable input for additional functionality in case the submodule needs to be used in a future design. The reset, tied to a button input, resets the counter to 0 when pressed. The enable input, tied to a constant high signal from the top-level module, allows the counter to run as expected when high and hold its current value when low. When the counter reached the maximum count value, it reset to 0 and inverted the output signal. This would act as the on-board LED toggle.\nThe other submodule implemented the combinational logic to control the 7-segment display based on the 4 switch inputs. Because of the large number of output signals, the combinational logic was implemented using a case statement instead of a series of implied logic gates.\nThe design was tested using waveform simulation of the top-level module and each submodule in QuestaSim through automatic testbenches to confirm the desired behaviour.\nThe counter submodule testbench instantiated the submodule freqconverter (with parameters WIDTH and MAX set to 4 and 10 respectively) under a test and generated a clock signal with a cycle time of 2ns. To start testing, enable and reset were first toggled so they were high. Then, the output signal was checked at every MAX number of clock signals to confirm the desired ON/OFF frequency. The reset was then toggled after a small delay and the output signal was checked again with the same intervals to confirm the reset put the counter value back at 0. The enable was then set to low and the same tests were performed to confirm the counter stopped running when enable was low.\nThe 7-segment display submodule testbench instantiated the submodule switch_7seg under a test, then went through each combination of four switch inputs while checking the seven segments were outputting the correct values.\nThe top-level module was tested in three separate testbenches. First was a testbench to test the clock generated by the HSOSC. The top-level output clk signal was checked at the time it takes to complete half a 24MHz clock cycle twice to confirm the signal is oscillating high/low at the 24MHz.\nAnother testbench was written to test the combinational logic of the on-board LEDs and the connection to the 7-segment submodule. Similar to the 7-segment display submodule testbench, this testbench instantiated the top-level module lab1_nk under a test, then went through each combination of four switch inputs while checking the on-board LEDs were outputting the correct values and the seven segments were being mapped to the top-level seven segment outputs.\nThe final top-level testbench tested the connection to the counter submodule. After instantiating the top-level module lab1_nk under a test, the reset signal was toggled high, and the oscillating LED signal was checked every half stepped-down clock signal to confirm the submodule output signal was oscillated at the right frequency and being mapped to the LED. The reset signal was toggled after a small delay and the oscillating LED signal was checked at the same interval to confirm the reset put the counter back at 0 and did not affect the signal mapping.\nFinally, the 7-segment display circuit was built and connected to the FPGA GPIO pins, and the full design was uploaded to the FPGA and deployed on the hardware. The design was tested by toggling the switches to account for all cases and observing the LED and 7-segment display outputs ton confirm functionality, as well as probing the output oscillating signal with an oscilloscope to confirm its frequency is 2.4Hz.\nTo implement this design on hardware, the GPIO pins needed to be connected to current-limiting resistors before the 7-segment display diodes. The resistor values were calculated as shown in Figure 2.\n\n\n\nFigure 2. Current-limiting resistor calculation"
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#technical-documentation",
+    "href": "labs/lab1/lab1-report.html#technical-documentation",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe source code for the project can be found in the associated GitHub repository.\n\nBlock Diagram\n\n\n\nFigure 3. Block diagram of the top-level module\n\n\nThe block diagram in Figure 3 shows the overall architecture of the design. The top-level module lab1_nk includes three submodules: the high-speed oscillator (HSOSC), the counter module (freqconverter), and the 7-segment display module (switch_7seg). The top-level module also contains an XOR gate and an AND gate which determine the combinational logic of the two on-board LEDs.\n\n\nSchematic\n\n\n\nFigure 4. Schematic of all circuit components outside the PCB\n\n\nThe block diagram in Figure 4 shows the physical circuit connections outside the PCB. The specified GPIO pins were connected to current-limiting resistors before the 7-segment display diodes. The common anode of the 7-segment display was connected to the 3.3V supply of the FPGA."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#results-and-discussion",
+    "href": "labs/lab1/lab1-report.html#results-and-discussion",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe design met all intended design objectives.\n\nTestbench Simulation\nFigure 5 shows a screenshot of the QuestaSim simulation waveforms for my 7-segment submodule testbench. It behaved correctly because for each switch combination, the 7-segment output was correct (looking at both the individual waveforms and the output of my automatic testbench).\n\n\n\n\n\n\nNoteClick to view 7-segment submodule simulation waveforms\n\n\n\n\n\n\n\n\nFigure 5. 7-segment submodule simulation waveforms\n\n\n\n\n\n\nFigure 6 shows a screenshot of the QuestaSim simulation waveforms for my counter submodule testbench. Note that since in my testbench I updated the MAX parameter to 10, so the clock signal conversion does not line up with 24MHz stepped down to 2.4Hz but instead 24MHz to 2.4MHz. The stepped-down output clock signal was high and low for the correct interval of time, even after a reset at an irregular time interval. When enable was pulled high, it functioned regularly as a counter (see first 2.5 clock signals), but when it was pulled low, the counter kept its currrent value of high until the reset was toggled again, resetting the counter to 0. This behaviour was also confirmed by my automatic testbench.\n\n\n\n\n\n\nNoteClick to view counter submodule simulation waveforms\n\n\n\n\n\n\n\n\nFigure 6. Counter submodule simulation waveforms\n\n\n\n\n\n\nFigure 7 shows a screenshot of the QuestaSim simulation waveforms for the clock generated by the HSOSC in the top-level module. The expected clock cycle was about 41.67ns (from the 24MHz generated), and the waveforms show the clock signal toggling every ~21ns, which is correct. This behaviour was also confirmed by my automatic testbench.\n\n\n\n\n\n\nNoteClick to view top-level module clock simulation waveforms\n\n\n\n\n\n\n\n\nFigure 7. Simulation waveforms testing the clock output from the HSOSC in the top-level module\n\n\n\n\n\n\nFigure 8 shows a screenshot of the QuestaSim simulation waveforms for the combinational logic LED behaviour and 7-segment submodule connection at the top-level. It behaved correctly because for each switch combination, the LED and 7-segment output at the top-level were correct (looking at both the individual waveforms and the output of my automatic testbench).\n\n\n\n\n\n\nNoteClick to view top-level module LED and 7-segment logic testbench simulation waveforms\n\n\n\n\n\n\n\n\nFigure 8. Simulation waveforms for all combinational logic outputs in the top-level\n\n\n\n\n\nFigure 9 shows a screenshot of the QuestaSim simulation waveforms testing the counter-submodule connection to the top-level. The top-level oscillating LED output was correctly read at half the 2.4Hz clock cycle twice and again after a reset was held to confirm the oscillation was 2.4Hz.\n\n\n\n\n\n\nNoteClick to view top-level module freqconverter testbench simulation waveforms\n\n\n\n\n\n\n\n\nFigure 9. Simulation waveforms for the counter submodule connection at the top-level\n\n\n\n\n\n\n\nHardware Deployment\nThis video showcases the design running on the completed PCB, with one on-board LED continuously blinking at 2.4Hz, and the other two on-board LEDs and the 7-segment display going through all 16 combinations of four switch inputs.\n\n\n\nOscilloscope Testing\nThe 2.4Hz LED toggle was confirmed using an oscilloscope. When the oscilloscope was connected to the LED output pin and ground, the signal was observed as shown in Figure 5.\n\n\n\nFigure 5. Oscilloscope trace observing 2.4Hz LED toggle\n\n\nUsing the internal oscilloscope frequency measurement tool, the frequency was measured to be 2.407Hz, which is almost exactly the intended 2.4Hz frequency. The small discrepancy could be due to variations in the clock frequency provided by the HSOSC, oscilloscope measurement errors etc."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#conclusion",
+    "href": "labs/lab1/lab1-report.html#conclusion",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design successfully oscillated an on-board LED at 2.4Hz, and the 7-segment display and the two other on-board LEDs were successfully controlled by the four switch inputs. It worked both in all simulation testing and physical testing with the hardware.\nI spent around 28 hours working on this lab (but most of the hours were trying to debug software issues with Lattice Radiant and QuestaSim)."
+  },
+  {
+    "objectID": "labs/lab1/lab1-report.html#ai-prototype-summary",
+    "href": "labs/lab1/lab1-report.html#ai-prototype-summary",
+    "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\n\n\n\n\n\n\nNoteClick to view the LLM-generated code\n\n\n\n\n\n`// Target Device: Lattice iCE40UP5K (UltraPlus) // Description: Drives an LED at 2 Hz using the internal 48 MHz HSOSC oscillator.\nmodule top ( output logic led );\n// Internal signals\nlogic clk_48mhz;\n\n// Counter parameters\nlocalparam int CLK_FREQ = 48_000_000;              // 48 MHz nominal oscillator\nlocalparam int TOGGLE_LIMIT = (CLK_FREQ / 4) - 1;   // 12,000,000 cycles (0.25s)\n\n// 24-bit counter variable\nlogic [23:0] counter = '0;\n\n// Instantiate Lattice iCE40 UltraPlus HSOSC Primitive\n// CLKHF_DIV: \"0b00\" = 48 MHz, \"0b01\" = 24 MHz, \"0b10\" = 12 MHz, \"0b11\" = 6 MHz\nHSOSC #(\n    .CLKHF_DIV(\"0b00\")\n) hsn_osc_inst (\n    .CLKHFEN(1'b1),      // Enable high-speed oscillator\n    .CLKHFPU(1'b1),      // Power up high-speed oscillator\n    .CLKHF(clk_48mhz)    // High-speed clock output\n);\n\n// 2 Hz Toggle Logic\nalways_ff @(posedge clk_48mhz) begin\n    if (counter &gt;= TOGGLE_LIMIT) begin\n        counter &lt;= '0;\n        led     &lt;= ~led;\n    end else begin\n        counter &lt;= counter + 1'b1;\n    end\nend\nendmodule`\n\n\n\nI think the LLM-generated code was pretty good. It synthesized the first time without any issues, and Radiant didn’t output any error messages. It outputted a warning message of “Port rejected for I/O register mapping: led”, but I believe this is unrelated to the LLM-generated code.\nIt’s 2Hz toggle logic was almost the same as my counter module to step the 24MHz clock down to 2.4Hz, aside from missing the reset and enable inputs. I also think it made the code slightly more streamlined since in the else statement, it didn’t bother making a wire from the previous led value to the current signal, and just included the counter increment. In my code, I had led &lt;= led (with different variable names), which looking back I think is unnecessary since the value will remain the same without this line, but when I wrote the code I thought it would be nice to have “just in case”.\nI was surprised that the LLM didn’t separate the toggle logic into a separate submodule. From E85, I’m used to programming these modules such that the top level only instantiates modules and does simple assign logic as needed. I assume the LLM only thinks of the current prompted tasks and not things like reusability of modules for future projects. I guess if someone is purely using the LLM to generate all code for separate individual tasks without doing any programming themselves this wouldn’t be an issue as the LLM would just do everything from scratch each time, but I think this would make the overall workflow more inefficient and less readable.\nNext time I use an LLM in my workflow I think I would add a line after the prompt that tells it to make and call submodules as it sees fit, and if someone in the future really doesn’t want to go in and see what the submodules are about they can drop those individual files into the LLM as “given prewritten modules” that it can then call on in the future."
+  },
+  {
+    "objectID": "posts/week1-reflections.html#reflections-on-lab",
+    "href": "posts/week1-reflections.html#reflections-on-lab",
     "title": "Week 1 Reflections",
     "section": "Reflections on Lab",
     "text": "Reflections on Lab"
