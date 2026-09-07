@@ -2,7 +2,9 @@
   {
     "listing": "/blog.html",
     "items": [
-      "/labs.html",
+      "/labs/lab1/lab1.html",
+      "/labs/lab2/lab2.html",
+      "/labs/lab1/lab1-report.html",
       "/posts/first-post.html"
     ]
   }
