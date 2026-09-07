@@ -43,7 +43,7 @@ The source code for the project can be found in the associated [GitHub repositor
 The block diagram in Figure 3 shows the overall architecture of the design. The top-level module lab1_nk includes three submodules: the high-speed oscillator (HSOSC), the counter module (oscillator), and the 7-segment display module (switch_7seg). The top-level module also contains an XOR gate and an AND gate which determine the combinational logic of the two on-board LEDs.
 
 # Schematic
-![**Figure 4. Schematic of all circuit components outside the PCB**](/images/lab1schematic.png)
+![**Figure 4. Schematic of all circuit components outside the PCB**](lab1schematic.png)
 
 ## Results and Discussion
 The design met all intended design objectives.
