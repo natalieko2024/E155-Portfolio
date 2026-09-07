@@ -16,7 +16,7 @@ To design the LED and 7-segment display implementation, two submodules were crea
 
 One submodule controled a counter that would "step down" the 24MHz clock generated from the HSOSC to a 2.4Hz clock. The maximum count value of the counter was calculated as shown in Figure 1.
 
-![**Figure 1. Counter maximum count value calculation**](/images/lab1calculation-counter.png)
+![**Figure 1. Counter maximum count value calculation**](https://github.com/natalieko2024/E155-Portfolio/blob/main/labs/lab1/images/lab1calculation-maxcount.jpg)
 
 The counter was also given a reset and enable input for additional functionality in case the submodule needs to be used in a future design. The reset, tied to a button input, resets the counter to 0 when pressed. The enable input, tied to a constant high signal from the top-level module, allows the counter to run as expected when high and hold its current value when low. When the counter reached the maximum count value, it reset to 0 and inverted the output signal. This would act as the on-board LED toggle. 
 
