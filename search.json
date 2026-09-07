@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "E155 Blog",
     "section": "",
-    "text": "Lab 1 Report: FPGA and MCU Setup and Testing\n\n\nLab Report for E155 Lab 1\n\n\n\n\n\nSep 6, 2026\n\n\nNatalie Ko\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 1 Reflections\n\n\nBuilding my development board and programming in Verilog\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\n\n\n\n\n\n\n\nFirst Post: Excited for MicroPs!\n\n\nLooking forward to this semester\n\n\n\n\n\nSep 1, 2026\n\n\nNatalie Ko\n\n\n\n\n\nNo matching items"
+    "text": "No matching items"
   },
   {
     "objectID": "index.html",
@@ -14,64 +14,64 @@
     "text": "Natalie Ko is an Engineering Major at Harvey Mudd College with a Science, Technology, and Society concentration. She’s interested in mechatronics and robotics. On campus, she works as a Repair Steward for Harvey Mudd’s Makerspace, CAD Lab TA/Grutor/Designer for the E4 course, and Shop Proctor for the Machine Shop.\nWhen Natalie isn’t working on coursework or on-campus jobs, she works on other cool Engineering personal projects, including iterating on functional Spiderman web-shooters since 2018. She’s primarily drawn to projects that help foster a more accessible world."
   },
   {
-    "objectID": "posts/first-post.html",
-    "href": "posts/first-post.html",
-    "title": "First Post: Excited for MicroPs!",
-    "section": "",
-    "text": "I’m really excited to be taking MicroPs this semester! As someone who is primarily interested in robotics and mechatronics, I’m excited to learn how to use microcontrollers and FPGAs to control different hardware. Especially since this is a project-based course (which I generally like more than courses which rely on exams), I’m excited to get hands-on experience learning how to implement different designs and ultimately diversify my project portfolio away from mainly mechanical projects.\nI also enjoyed the content in E85, so I think it will be interesting expanding on some of the concepts I learned in that course."
-  },
-  {
-    "objectID": "labs/lab1/lab1-report.html",
-    "href": "labs/lab1/lab1-report.html",
+    "objectID": "labs:/lab1:/lab1-report.html",
+    "href": "labs:/lab1:/lab1-report.html",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "",
     "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
   },
   {
-    "objectID": "labs/lab1/lab1-report.html#introduction",
-    "href": "labs/lab1/lab1-report.html#introduction",
+    "objectID": "labs:/lab1:/lab1-report.html#introduction",
+    "href": "labs:/lab1:/lab1-report.html#introduction",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "",
     "text": "In this lab, the E155 development board was assembled and tested to confirm the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality. A design was implemented on the FPGA to control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs."
   },
   {
-    "objectID": "labs/lab1/lab1-report.html#design-and-testing-methodology",
-    "href": "labs/lab1/lab1-report.html#design-and-testing-methodology",
+    "objectID": "labs:/lab1:/lab1-report.html#design-and-testing-methodology",
+    "href": "labs:/lab1:/lab1-report.html#design-and-testing-methodology",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Design and Testing Methodology",
     "text": "Design and Testing Methodology\nTo design the LED and 7-segment display implementation, two submodules were created and linked by a top-level module. The top level module included combinational logic to control two of the on-board LEDs based on four switch inputs, and called the two submodules and HSOSC to control the oscillating on-board LED and the 7-segment display.\nOne submodule controled a counter that would “step down” the 24MHz clock generated from the HSOSC to a 2.4Hz clock. The maximum count value of the counter was calculated as shown in Figure 1.\n\n\n\nFigure 1. Counter maximum count value calculation\n\n\nThe counter was also given a reset and enable input for additional functionality in case the submodule needs to be used in a future design. The reset, tied to a button input, resets the counter to 0 when pressed. The enable input, tied to a constant high signal from the top-level module, allows the counter to run as expected when high and hold its current value when low. When the counter reached the maximum count value, it reset to 0 and inverted the output signal. This would act as the on-board LED toggle.\nThe other submodule implemented the combinational logic to control the 7-segment display based on the 4 switch inputs. Because of the large number of output signals, the combinational logic was implemented using a case statement instead of a series of implied logic gates.\nThe design was first tested manually using waveform simulation of the top-level module in QuestaSim to look at the top-level outputs for each switch combination.\nThen, several testbenches were written and run to confirm the outputs of each sub-module and the top-level module in each possible input case.\n[elaborate on each testbench]\nFinally, the 7-segment display circuit was built and connected to the FPGA GPIO pins, and the full design was uploaded to the FPGA and deployed on the hardware. The design was tested by toggling the switches to account for all cases and observing the LED and 7-segment display outputs ton confirm functionality.\nTo implement this design on hardware, the GPIO pins needed to be connected to current-limiting resistors before the 7-segment display diodes. The resistor values were calculated as shown in Figure 2.\n\n\n\nFigure 2. Current-limiting resistor calculation"
   },
   {
-    "objectID": "labs/lab1/lab1-report.html#technical-documentation",
-    "href": "labs/lab1/lab1-report.html#technical-documentation",
+    "objectID": "labs:/lab1:/lab1-report.html#technical-documentation",
+    "href": "labs:/lab1:/lab1-report.html#technical-documentation",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Technical Documentation",
     "text": "Technical Documentation\nThe source code for the project can be found in the associated GitHub repository."
   },
   {
-    "objectID": "labs/lab1/lab1-report.html#results-and-discussion",
-    "href": "labs/lab1/lab1-report.html#results-and-discussion",
+    "objectID": "labs:/lab1:/lab1-report.html#results-and-discussion",
+    "href": "labs:/lab1:/lab1-report.html#results-and-discussion",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Results and Discussion",
     "text": "Results and Discussion\nThe design met all intended design objectives."
   },
   {
-    "objectID": "labs/lab1/lab1-report.html#conclusion",
-    "href": "labs/lab1/lab1-report.html#conclusion",
+    "objectID": "labs:/lab1:/lab1-report.html#conclusion",
+    "href": "labs:/lab1:/lab1-report.html#conclusion",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "Conclusion",
     "text": "Conclusion\nThe design successfully oscillated an on-board LED at 2.4Hz, and the 7-segment display and the two other on-board LEDs were successfully controlled by the four switch inputs. It worked both in all simulation testing and physical testing with the hardware.\nI spent around 28 hours working on this lab (but most of the hours were trying to debug software issues with Lattice Radiant and QuestaSim)."
   },
   {
-    "objectID": "labs/lab1/lab1-report.html#ai-prototype-summary",
-    "href": "labs/lab1/lab1-report.html#ai-prototype-summary",
+    "objectID": "labs:/lab1:/lab1-report.html#ai-prototype-summary",
+    "href": "labs:/lab1:/lab1-report.html#ai-prototype-summary",
     "title": "Lab 1 Report: FPGA and MCU Setup and Testing",
     "section": "AI Prototype Summary",
     "text": "AI Prototype Summary"
   },
   {
-    "objectID": "posts/week1-reflections.html#reflections-on-lab",
-    "href": "posts/week1-reflections.html#reflections-on-lab",
+    "objectID": "posts:/first-post.html",
+    "href": "posts:/first-post.html",
+    "title": "First Post: Excited for MicroPs!",
+    "section": "",
+    "text": "I’m really excited to be taking MicroPs this semester! As someone who is primarily interested in robotics and mechatronics, I’m excited to learn how to use microcontrollers and FPGAs to control different hardware. Especially since this is a project-based course (which I generally like more than courses which rely on exams), I’m excited to get hands-on experience learning how to implement different designs and ultimately diversify my project portfolio away from mainly mechanical projects.\nI also enjoyed the content in E85, so I think it will be interesting expanding on some of the concepts I learned in that course."
+  },
+  {
+    "objectID": "posts:/week1-reflections.html#reflections-on-lab",
+    "href": "posts:/week1-reflections.html#reflections-on-lab",
     "title": "Week 1 Reflections",
     "section": "Reflections on Lab",
     "text": "Reflections on Lab"
