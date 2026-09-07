@@ -2,7 +2,7 @@
 title: "E155 Labs"
 ---
 ## Lab 1: MCU and FPGA Assembly and Testing
-[Lab 1 report here](https://natalieko2024.github.io/E155-Portfolio/labs/lab1/lab1-report.html) 
+[Lab 1 report here](labs/lab1/lab1-report.html) 
 
 ## Lab 2: Multiplexed 7-Segment Display
 Lab 2 report coming soon!
