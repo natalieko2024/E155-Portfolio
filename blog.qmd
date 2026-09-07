@@ -3,7 +3,7 @@ title: "E155 Blog"
 listing:
     contents: 
         - "posts"
-        - "labs.qmd"
+        - "labs"
     sort: "date desc"
     type: "default"
     categories: false
