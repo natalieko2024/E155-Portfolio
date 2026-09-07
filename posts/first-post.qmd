@@ -9,9 +9,6 @@ categories:
 draft: false
 ---
 
+I'm really excited to be taking MicroPs this semester! As someone who is primarily interested in robotics and mechatronics, I'm excited to learn how to use microcontrollers and FPGAs to control different hardware. Especially since this is a project-based course (which I generally like more than courses which rely on exams), I'm excited to get hands-on experience learning how to implement different designs and ultimately diversify my project portfolio away from mainly mechanical projects.
 
-## Introduction
-
-## Design and Testing Methodology
-
-## Technical Documentation
+I also enjoyed the content in E85, so I think it will be interesting expanding on some of the concepts I learned in that course.
