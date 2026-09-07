@@ -16,7 +16,7 @@ To design the LED and 7-segment display implementation, two submodules were crea
 
 One submodule controled a counter that would "step down" the 24MHz clock generated from the HSOSC to a 2.4Hz clock. The maximum count value of the counter was calculated as shown in Figure 1.
 
-![**Figure 1. Counter maximum count value calculation**](labs/lab1/images/lab1calculation-counter.png)
+![**Figure 1. Counter maximum count value calculation**](../labs/lab1/images/lab1calculation-counter.png)
 
 The counter was also given a reset and enable input for additional functionality in case the submodule needs to be used in a future design. The reset, tied to a button input, resets the counter to 0 when pressed. The enable input, tied to a constant high signal from the top-level module, allows the counter to run as expected when high and hold its current value when low. When the counter reached the maximum count value, it reset to 0 and inverted the output signal. This would act as the on-board LED toggle. 
 
@@ -32,18 +32,18 @@ Finally, the 7-segment display circuit was built and connected to the FPGA GPIO 
 
 To implement this design on hardware, the GPIO pins needed to be connected to current-limiting resistors before the 7-segment display diodes. The resistor values were calculated as shown in Figure 2.
 
-![**Figure 2. Current-limiting resistor calculation**](labs/lab1/images/lab1calculation-resistor.png)
+![**Figure 2. Current-limiting resistor calculation**](../labs/lab1/images/lab1calculation-resistor.png)
 
 ## Technical Documentation
 The source code for the project can be found in the associated [GitHub repository](https://github.com/natalieko2024/E155-Labs/tree/main/E155-Lab1).
 
 # Block Diagram
-![**Figure 3.Block diagram of the top-level module**](labs/lab1/images/lab1blockdiagram.png)
+![**Figure 3.Block diagram of the top-level module**](../labs/lab1/images/lab1blockdiagram.png)
 
 The block diagram in Figure 3 shows the overall architecture of the design. The top-level module lab1_nk includes three submodules: the high-speed oscillator (HSOSC), the counter module (oscillator), and the 7-segment display module (switch_7seg). The top-level module also contains an XOR gate and an AND gate which determine the combinational logic of the two on-board LEDs.
 
 # Schematic
-![**Figure 4. Schematic of all circuit components outside the PCB**](labs/lab1/images/lab1schematic.png)
+![**Figure 4. Schematic of all circuit components outside the PCB**](../labs/lab1/images/lab1schematic.png)
 
 ## Results and Discussion
 The design met all intended design objectives.
@@ -60,7 +60,7 @@ This video showcases the design running on the completed PCB, with the LED at P
 # Oscilloscope Testing
 The 2.4Hz LED toggle was confirmed using an oscilloscope. When the oscilloscope was connected to the LED output pin and ground, the signal was observed as follows:
 
-![**Oscilloscope trace observing 2.4Hz LED toggle**](labs/lab1/images/lab1oscilloscope.png)
+![**Oscilloscope trace observing 2.4Hz LED toggle**](../labs/lab1/images/lab1oscilloscope.png)
 
 Using the internal oscilloscope frequency measurement tool, the frequency was measured to be 2.407Hz, which is almost exactly the intended 2.4Hz frequency. The small discrepancy could be due to variations in the clock frequency provided by the HSOSC, oscilloscope measurement errors etc.
 
