@@ -1,14 +1,23 @@
 ---
 title: "Week 1 Reflections"
-description: "Building my development board and programming in Verilog"
+description: "Building my development board and programming in SystemVerilog"
 author: "Natalie Ko"
-date: "09/01/2026"
+date: "09/07/2026"
 categories:
   - reflection
-  - labreport
 draft: false
 ---
 
 ## Summary
+In this lab, I built the E155 development board. After testing the NUCLEO-32 MCU and UPduino v3.1 FPGA functionality, I programmed in SystemVerilog to implement a design on the FPGA that would control an on-board LED with the on-board high-speed oscillator, as well as control two additional on-board LEDs and an external 7-segment display using combinational logic of four switch inputs.
 
 ## Reflections on Lab
+I ran into several issues during this lab which were quite frustrating and time consuming. 
+
+First is that there were many Lattice Radiant problems. I initially tried to install Lattice Radiant on my personal device, but their licensing portal was down, and they never got back to me after I submitted a ticket D:. So then I moved to working on the computers in the Digital Lab, which have Radiant installed but then Radiant decided it didn't want to run the system engine. And the fix for this was kind of diabolical as well, you just had to restart the computer twice to get it to start running?? Then Radiant's programmer never likes to detect my FPGA, so Xavier showed me a workaround, where you could program the FPGA from the terminal using a new special driver he installed. But it turns out if you open Radiant's programmer, it can somehow override admin privileges and UNINSTALL XAVIER'S DRIVER TO MAKE ITSELF THE ONLY DRIVER. So I would have to just sit there and open and close the programer for maybe 10 minutes each time to get Radiant to program my board.
+
+Super grateful to Xavier for all the help with these issues, by the way.
+
+And then for actual coding issues, I did have one logic issue at the start where I would only assign high to the oscillating LED when my counter was at the MAX value, and this meant that I would never see the LED blink on my board because the counter is only at MAX for a really short amount of time (since it resets to 0 right after getting there). This was an easy fix though, I just had to invert the signal instead of assigning it every time.
+
+The bigger and more confusing issue was with my HSOSC. As defined in the FPGA testing code provided to us, sending 2'b01 to the .CLKHF_DIV would set the HSOSC to 24MHz. But I guess it didn't like this, because it kept outputting a 48MHz signal in my waveforms. What's weirder is that I probed my blinking LED, and with the right counter logic of counting to 5,000,000 before inverting the signal, the board actually had the correct output signal of 2.4Hz. I looked through the docs again and sent "0b01" to it which then made the waveforms 24MHz and kept the same output signal on the physical hardware. But I still don't really understand why this would only change the waveforms and not anything else.
