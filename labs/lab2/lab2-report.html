@@ -214,7 +214,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/lab2NPNMath.png" class="img-fluid figure-img"></p>
+<p><img src="images/lab2NPNMath.jpg" class="img-fluid figure-img"></p>
 <figcaption><strong>Figure 2. Resistor calculations for NPN transistor (keypad)</strong></figcaption>
 </figure>
 </div>
@@ -415,100 +415,182 @@ Figure&nbsp;1: <strong>Figure 10. Oscope Traces for LED Outputs</strong>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>module top_display_multiplexer #( parameter integer CLK_FREQ_HZ = 50_000_000, // 50 MHz input clock parameter integer REFRESH_HZ = 200 // Overall refresh frequency )( input logic clk, input logic rst_n, // Active-low asynchronous reset input logic [3:0] in_digit0, // First 4-bit nibble input logic [3:0] in_digit1, // Second 4-bit nibble output logic [6:0] seg, // Seven segment outputs {g, f, e, d, c, b, a} output logic [1:0] anode // Digit select lines (active-low) );</p>
-<pre><code>// Calculate clock divider threshold for multiplexing rate
-// Toggles every half-period of total refresh cycle
-localparam integer CNT_MAX = CLK_FREQ_HZ / (REFRESH_HZ * 2);
+<pre class="{systemverilog}"><code>module top_display_multiplexer #(
+    parameter integer CLK_FREQ_HZ = 50_000_000, // 50 MHz input clock
+    parameter integer REFRESH_HZ  = 200          // Overall refresh frequency
+)(
+    input  logic       clk,
+    input  logic       rst_n,      // Active-low asynchronous reset
+    input  logic [3:0] in_digit0,  // First 4-bit nibble
+    input  logic [3:0] in_digit1,  // Second 4-bit nibble
+    output logic [6:0] seg,        // Seven segment outputs {g, f, e, d, c, b, a}
+    output logic [1:0] anode       // Digit select lines (active-low)
+);
 
-logic [$clog2(CNT_MAX)-1:0] clk_cnt;
-logic                       digit_sel; // 0 = Digit 0, 1 = Digit 1
-logic [3:0]                 mux_nibble;
+    // Calculate clock divider threshold for multiplexing rate
+    // Toggles every half-period of total refresh cycle
+    localparam integer CNT_MAX = CLK_FREQ_HZ / (REFRESH_HZ * 2);
 
-// ------------------------------------------------------------------------
-// 1. Clock Divider / Mux Selector
-// ------------------------------------------------------------------------
-always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-        clk_cnt   &lt;= '0;
-        digit_sel &lt;= 1'b0;
-    end else if (clk_cnt == CNT_MAX - 1) begin
-        clk_cnt   &lt;= '0;
-        digit_sel &lt;= ~digit_sel; // Toggle active digit
-    end else begin
-        clk_cnt   &lt;= clk_cnt + 1'b1;
+    logic [$clog2(CNT_MAX)-1:0] clk_cnt;
+    logic                       digit_sel; // 0 = Digit 0, 1 = Digit 1
+    logic [3:0]                 mux_nibble;
+
+    // ------------------------------------------------------------------------
+    // 1. Clock Divider / Mux Selector
+    // ------------------------------------------------------------------------
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            clk_cnt   &lt;= '0;
+            digit_sel &lt;= 1'b0;
+        end else if (clk_cnt == CNT_MAX - 1) begin
+            clk_cnt   &lt;= '0;
+            digit_sel &lt;= ~digit_sel; // Toggle active digit
+        end else begin
+            clk_cnt   &lt;= clk_cnt + 1'b1;
+        end
     end
-end
 
-// ------------------------------------------------------------------------
-// 2. Data Multiplexer &amp; Anode Controller (Active-Low)
-// ------------------------------------------------------------------------
-always_comb begin
-    case (digit_sel)
-        1'b0: begin
-            mux_nibble = in_digit0;
-            anode      = 2'b10; // Enable Digit 0 (active-low)
-        end
-        1'b1: begin
-            mux_nibble = in_digit1;
-            anode      = 2'b01; // Enable Digit 1 (active-low)
-        end
-        default: begin
-            mux_nibble = 4'h0;
-            anode      = 2'b11; // Turn off both
-        end
-    endcase
-end
+    // ------------------------------------------------------------------------
+    // 2. Data Multiplexer &amp; Anode Controller (Active-Low)
+    // ------------------------------------------------------------------------
+    always_comb begin
+        case (digit_sel)
+            1'b0: begin
+                mux_nibble = in_digit0;
+                anode      = 2'b10; // Enable Digit 0 (active-low)
+            end
+            1'b1: begin
+                mux_nibble = in_digit1;
+                anode      = 2'b01; // Enable Digit 1 (active-low)
+            end
+            default: begin
+                mux_nibble = 4'h0;
+                anode      = 2'b11; // Turn off both
+            end
+        endcase
+    end
 
-// ------------------------------------------------------------------------
-// 3. Shared Seven-Segment Decoder Instance
-// ------------------------------------------------------------------------
-sev_seg_decoder u_decoder (
-    .nibble (mux_nibble),
-    .seg    (seg)
-);</code></pre>
-<p>endmodule</p>
-<p>// —————————————————————————- // Common-Anode Seven Segment Decoder (Active-Low Output) // Segments: {g, f, e, d, c, b, a} // —————————————————————————- module sev_seg_decoder ( input logic [3:0] nibble, output logic [6:0] seg );</p>
-<pre><code>always_comb begin
-    case (nibble)
-        4'h0: seg = 7'b100_0000; // 0
-        4'h1: seg = 7'b111_1001; // 1
-        4'h2: seg = 7'b010_0100; // 2
-        4'h3: seg = 7'b011_0000; // 3
-        4'h4: seg = 7'b001_1001; // 4
-        4'h5: seg = 7'b010_0010; // 5
-        4'h6: seg = 7'b010_0000; // 6
-        4'h7: seg = 7'b111_1000; // 7
-        4'h8: seg = 7'b000_0000; // 8
-        4'h9: seg = 7'b001_0000; // 9
-        4'hA: seg = 7'b000_1000; // A
-        4'hB: seg = 7'b000_0011; // b
-        4'hC: seg = 7'b100_0110; // C
-        4'hD: seg = 7'b010_0001; // d
-        4'hE: seg = 7'b000_0110; // E
-        4'hF: seg = 7'b000_1110; // F
-        default: seg = 7'b111_1111; // Blank
-    endcase
-end</code></pre>
-<p>endmodule</p>
+    // ------------------------------------------------------------------------
+    // 3. Shared Seven-Segment Decoder Instance
+    // ------------------------------------------------------------------------
+    sev_seg_decoder u_decoder (
+        .nibble (mux_nibble),
+        .seg    (seg)
+    );
+
+endmodule
+
+
+// ----------------------------------------------------------------------------
+// Common-Anode Seven Segment Decoder (Active-Low Output)
+// Segments: {g, f, e, d, c, b, a}
+// ----------------------------------------------------------------------------
+module sev_seg_decoder (
+    input  logic [3:0] nibble,
+    output logic [6:0] seg
+);
+
+    always_comb begin
+        case (nibble)
+            4'h0: seg = 7'b100_0000; // 0
+            4'h1: seg = 7'b111_1001; // 1
+            4'h2: seg = 7'b010_0100; // 2
+            4'h3: seg = 7'b011_0000; // 3
+            4'h4: seg = 7'b001_1001; // 4
+            4'h5: seg = 7'b010_0010; // 5
+            4'h6: seg = 7'b010_0000; // 6
+            4'h7: seg = 7'b111_1000; // 7
+            4'h8: seg = 7'b000_0000; // 8
+            4'h9: seg = 7'b001_0000; // 9
+            4'hA: seg = 7'b000_1000; // A
+            4'hB: seg = 7'b000_0011; // b
+            4'hC: seg = 7'b100_0110; // C
+            4'hD: seg = 7'b010_0001; // d
+            4'hE: seg = 7'b000_0110; // E
+            4'hF: seg = 7'b000_1110; // F
+            default: seg = 7'b111_1111; // Blank
+        endcase
+    end
+
+endmodule</code></pre>
 </div>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-empty-content callout-titled">
+<p>I think this LLM-generated code was pretty good, it synthesized the first time without any issues. I think its variable names could be improved on (what is “nibble” supposed to even mean???) and I didn’t understand some of the lines such as <code>$clog2</code>. The code seems clean enough. It did choose an interesting way of defining a clock signal though, I didn’t know using <code>localparam</code> was possible as an alternative to the HSOSC.</p>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+<span class="screen-reader-only">Note</span>Click to view the LLM-generated code for prompt 2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
+<pre class="{systemverilog}"><code>// SystemVerilog module to time-multiplex a single seven-segment decoder
+// across two 4-bit inputs using a single switch_7seg module and oscillator.
 
+module display_multiplexer (
+    input  logic       reset,
+    input  logic [3:0] val0,
+    input  logic [3:0] val1,
+    output logic [6:0] seg0,
+    output logic [6:0] seg1
+);
+
+    logic clk;
+    logic select;
+    logic [22:0] count;
+    
+    logic [3:0] current_val;
+    logic [6:0] decoded_seg;
+
+    // Instantiate high-speed oscillator (24MHz clock)[cite: 7]
+    HSOSC #(.CLKHF_DIV("0b01")) hf_osc (
+        .CLKHFPU(1'b1),
+        .CLKHFEN(1'b1),
+        .CLKHF(clk)
+    );[cite: 7]
+
+    // Instantiate frequency converter to toggle select bit[cite: 1]
+    // Default MAX/WIDTH creates a standard multiplexing toggle frequency.
+    freqconverter #(.WIDTH(23), .MAX(5000000)) freq_divider (
+        .clk(clk),
+        .reset(reset),
+        .enable(1'b1),
+        .led2(select),
+        .counter(count)
+    );[cite: 1]
+
+    // Multiplexer selecting which input nibble goes to the decoder
+    assign current_val = select ? val1 : val0;
+
+    // Instantiate the single shared 7-segment decoder[cite: 8]
+    switch_7seg decoder (
+        .s(current_val),
+        .seg(decoded_seg)
+    );[cite: 8]
+
+    // Demultiplex / Latch decoded 7-segment output values
+    always_ff @(posedge clk) begin
+        if (~reset) begin
+            seg0 &lt;= 7'b1111111; // All OFF (common anode)[cite: 8]
+            seg1 &lt;= 7'b1111111;
+        end else begin
+            if (select == 1'b0)
+                seg0 &lt;= decoded_seg;
+            else
+                seg1 &lt;= decoded_seg;
+        end
+    end
+
+endmodule</code></pre>
 </div>
 </div>
 </div>
+<p>This code was not so good. It didn’t synthesize the first time, Radiant gave a syntax error in the module the LLM provided. Upon further inspection, the LLM shoved a bunch of <code>[cite:#]</code> blocks after each submodule instantiation. I assume these are “citations” to my provided modules. After removoing these, the code synthesized.</p>
 
 
 </section>
@@ -587,7 +669,7 @@ Note
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/natalieko2024\.github\.io\/E155-Portfolio\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
