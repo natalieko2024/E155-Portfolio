@@ -5,7 +5,7 @@ title: "E155 Labs"
 [Lab 1 report here](labs/lab1/lab1-report.html) 
 
 ## Lab 2: Multiplexed 7-Segment Display
-Lab 2 report coming soon!
+[Lab 2 report here](labs/lab2/lab2-report.html)
 
 ## Lab 3: Keypad Scanner
 Lab 3 report coming soon!
