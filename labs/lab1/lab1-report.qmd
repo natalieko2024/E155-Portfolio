@@ -139,7 +139,8 @@ I spent around 34 hours working on this lab (but some of the hours were trying t
 ## AI Prototype Summary
 ::: {.callout-note collapse="true"}
 ## Click to view the LLM-generated code
-`// Target Device: Lattice iCE40UP5K (UltraPlus)
+```{systemverilog}
+// Target Device: Lattice iCE40UP5K (UltraPlus)
 // Description: Drives an LED at 2 Hz using the internal 48 MHz HSOSC oscillator.
 
 module top (
@@ -176,7 +177,8 @@ module top (
         end
     end
 
-endmodule`
+endmodule
+```{systemverilog}
 :::
 
 I think the LLM-generated code was pretty good. It synthesized the first time without any issues, and Radiant didn't output any error messages. It outputted a warning message of "Port rejected for I/O register mapping: led", but I believe this is unrelated to the LLM-generated code. 

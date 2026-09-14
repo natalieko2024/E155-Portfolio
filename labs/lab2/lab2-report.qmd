@@ -34,7 +34,7 @@ To implement this in hardware, PNP transistors need to be wired to the anodes of
 
 ![**Figure 1. Resistor calculations for PNP transistor (dual 7-segment)**](images/lab2PNPMath.png)
 
-![**Figure 2. Resistor calculations for NPN transistor (keypad)**](images/lab2NPNMath.png)
+![**Figure 2. Resistor calculations for NPN transistor (keypad)**](images/lab2NPNMath.jpg)
 
 ## Technical Documentation
 The source code for the project can be found in the associated [GitHub repository](https://github.com/natalieko2024/E155-Labs/tree/main/E155-Lab2).
@@ -114,6 +114,7 @@ I spent about 20 hours working on this lab.
 ## AI Prototype Summary
 ::: {.callout-note collapse="true"}
 ## Click to view the LLM-generated code for prompt 1
+```{systemverilog}
 module top_display_multiplexer #(
     parameter integer CLK_FREQ_HZ = 50_000_000, // 50 MHz input clock
     parameter integer REFRESH_HZ  = 200          // Overall refresh frequency
@@ -212,8 +213,73 @@ module sev_seg_decoder (
     end
 
 endmodule
+```
 :::
+
+I think this LLM-generated code was pretty good, it synthesized the first time without any issues. I think its variable names could be improved on (what is "nibble" supposed to even mean???) and I didn't understand some of the lines such as `$clog2`. The code seems clean enough. It did choose an interesting way of defining a clock signal though, I didn't know using `localparam` was possible as an alternative to the HSOSC.
 
 ::: {.callout-note collapse="true"}
 ## Click to view the LLM-generated code for prompt 2
+```{systemverilog}
+// SystemVerilog module to time-multiplex a single seven-segment decoder
+// across two 4-bit inputs using a single switch_7seg module and oscillator.
+
+module display_multiplexer (
+    input  logic       reset,
+    input  logic [3:0] val0,
+    input  logic [3:0] val1,
+    output logic [6:0] seg0,
+    output logic [6:0] seg1
+);
+
+    logic clk;
+    logic select;
+    logic [22:0] count;
+    
+    logic [3:0] current_val;
+    logic [6:0] decoded_seg;
+
+    // Instantiate high-speed oscillator (24MHz clock)[cite: 7]
+    HSOSC #(.CLKHF_DIV("0b01")) hf_osc (
+        .CLKHFPU(1'b1),
+        .CLKHFEN(1'b1),
+        .CLKHF(clk)
+    );[cite: 7]
+
+    // Instantiate frequency converter to toggle select bit[cite: 1]
+    // Default MAX/WIDTH creates a standard multiplexing toggle frequency.
+    freqconverter #(.WIDTH(23), .MAX(5000000)) freq_divider (
+        .clk(clk),
+        .reset(reset),
+        .enable(1'b1),
+        .led2(select),
+        .counter(count)
+    );[cite: 1]
+
+    // Multiplexer selecting which input nibble goes to the decoder
+    assign current_val = select ? val1 : val0;
+
+    // Instantiate the single shared 7-segment decoder[cite: 8]
+    switch_7seg decoder (
+        .s(current_val),
+        .seg(decoded_seg)
+    );[cite: 8]
+
+    // Demultiplex / Latch decoded 7-segment output values
+    always_ff @(posedge clk) begin
+        if (~reset) begin
+            seg0 <= 7'b1111111; // All OFF (common anode)[cite: 8]
+            seg1 <= 7'b1111111;
+        end else begin
+            if (select == 1'b0)
+                seg0 <= decoded_seg;
+            else
+                seg1 <= decoded_seg;
+        end
+    end
+
+endmodule
+```
 :::
+
+This code was not so good. It didn't synthesize the first time, Radiant gave a syntax error in the module the LLM provided. Upon further inspection, the LLM shoved a bunch of `[cite:#]` blocks after each submodule instantiation. I assume these are "citations" to my provided modules. After removoing these, the code synthesized.
