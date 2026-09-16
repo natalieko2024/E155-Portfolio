@@ -37,6 +37,7 @@ To implement this in hardware, PNP transistors need to be wired to the anodes of
 ![**Figure 2. Resistor calculations for NPN transistor (keypad)**](images/lab2NPNMath.jpg)
 
 Figure 3 shows current-limiting resistor values for the keypad column-scanning LEDs.
+
 ![**Figure 3. Resistor calculations for the current-limiting resistor for scanning LEDs**](images/lab2KeypadLEDMath.png)
 
 ## Technical Documentation
