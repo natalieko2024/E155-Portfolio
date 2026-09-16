@@ -55,7 +55,7 @@ The schematic in Figure 5 shows the physical circuit connections outside the PCB
 
 The schematic in Figure 6 shows the physical circuit connections outside the PCB for the keypad scanner portion of the design. The specified GPIO pins were connected to current limiting resistors and diodes for the LED outputs, and 2N3904 transistors connected to the 4x4 keypad to write rows. Pins were also connected to the keypad columns to collect as inputs.
 
-![**Figure 6. Schematic of all circuit components outside the PCB for the keypad scanner**](images/lab2KeypadSchematic.jpg)
+![**Figure 6. Schematic of all circuit components outside the PCB for the keypad scanner**](images/lab2KeypadSchematic.png)
 
 ## Results and Discussion
 The design met all intended design objectives. 
