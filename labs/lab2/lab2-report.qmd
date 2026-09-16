@@ -34,7 +34,7 @@ To implement this in hardware, PNP transistors need to be wired to the anodes of
 
 ![**Figure 1. Resistor calculations for PNP transistor and dual 7-segment diodes**](images/lab2PNPMath.png)
 
-![**Figure 2. Resistor calculations for NPN transistor (keypad)**](images/lab2NPNMath.jpg)
+![**Figure 2. Resistor calculations for NPN transistor (keypad)**](images/lab2NPNMath.png)
 
 Figure 3 shows current-limiting resistor values for the keypad column-scanning LEDs.
 
