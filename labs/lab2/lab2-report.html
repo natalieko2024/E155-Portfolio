@@ -205,11 +205,11 @@ ul.task-list li input[type="checkbox"] {
 <p>The scanning submodule testbench instantiated the submodule scan under a test. Reset and enable were pulled high. The row outputs were then checked every 0.006s as this is how long it should take for them to toggle. The reset was then pulled low and high and the row outputs were checked to reset to 4’b1000 and start rotating. Then, enable was set to low to confirm the row outputs would stop rotating, and reset was pulled high again to check the row outputs reset and did not continue changing.</p>
 <p>The top-level submodule testbench instantiated the module lab_nk under a test. Reset was set high, switch inputs were set and the segments were checked after 8333334ns to confirm that the left/right segments were only written at the corresponding anode values. Then, different column inputs were written and the led outputs were checked to confirm the led bits were inverted column bits.</p>
 <p>The dual 7-segment display circuit and keypad scanner circuit were built and connected separately to the FPGA GPIO pins because there were not enough pins to connect all the inputs and outputs at the same time. The design was tested by toggling all 8 switch inputs and observing the 7-segment display outputs, and then pressing keypad buttons individually and multiple in the same row/column and observing the LED outputs.</p>
-<p>To implement this in hardware, PNP transistors need to be wired to the anodes of the dual 7-segment display becuase the required current is greater than what the FPGA GPIO pins can drive and NPN transistors need to be wired to the rows of the 4x4 keypad to prevent shorting multiple row drivers when multiple keys are pressed. The appropriate resistor values to go from the GPIO pins to the base of the transistors were calculated as shown in Figure 1 and Figure 2.</p>
+<p>To implement this in hardware, PNP transistors need to be wired to the anodes of the dual 7-segment display becuase the required current is greater than what the FPGA GPIO pins can drive and NPN transistors need to be wired to the rows of the 4x4 keypad to prevent shorting multiple row drivers when multiple keys are pressed. The appropriate resistor values to go from the GPIO pins to the base of the transistors were calculated as shown in Figure 1 and Figure 2. Figure 1 also includes current-limiting resistor calculations for the diodes in the dual 7-segment display.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2PNPMath.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure 1. Resistor calculations for PNP transistor (dual 7-segment)</strong></figcaption>
+<figcaption><strong>Figure 1. Resistor calculations for PNP transistor and dual 7-segment diodes</strong></figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -218,34 +218,35 @@ ul.task-list li input[type="checkbox"] {
 <figcaption><strong>Figure 2. Resistor calculations for NPN transistor (keypad)</strong></figcaption>
 </figure>
 </div>
+<p>Figure 3 shows current-limiting resistor values for the keypad column-scanning LEDs. <img src="images/lab2KeypadLEDMath.png" class="img-fluid" alt="Figure 3. Resistor calculations for the current-limiting resistor for scanning LEDs"></p>
 </section>
 <section id="technical-documentation" class="level2">
 <h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
 <p>The source code for the project can be found in the associated <a href="https://github.com/natalieko2024/E155-Labs/tree/main/E155-Lab2">GitHub repository</a>.</p>
 <section id="block-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
-<p>The block diagram in Figure 3 shows the overall architecture of the design. The top-level module lab2_nk includes four submodules: the high-speed oscillator (HSOSC), the multiplexing counter module (muxCounter), the 7-segment display module (switch_7seg), and the scanner module (scan). The top-level module also contains a MUX and a NOT gate to write the correct segments and LEDs.</p>
+<p>The block diagram in Figure 4 shows the overall architecture of the design. The top-level module lab2_nk includes four submodules: the high-speed oscillator (HSOSC), the multiplexing counter module (muxCounter), the 7-segment display module (switch_7seg), and the scanner module (scan). The top-level module also contains a MUX and a NOT gate to write the correct segments and LEDs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2BlockDiagram.jpg" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure 3. Block diagram of the top-level module</strong></figcaption>
+<figcaption><strong>Figure 4. Block diagram of the top-level module</strong></figcaption>
 </figure>
 </div>
 </section>
 <section id="schematic" class="level3">
 <h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
-<p>The schematic in Figure 4 shows the physical circuit connections outside the PCB for the dual 7-segment portion of the design. The specified GPIO pins were connected to current limiting resistors before the 7-segment display cathodes. The common anodes of the 7-segment display were connected to the 3.3V supply and GPIO pins of the FPGA through the 2N3906 transistors.</p>
+<p>The schematic in Figure 5 shows the physical circuit connections outside the PCB for the dual 7-segment portion of the design. The specified GPIO pins were connected to current limiting resistors before the 7-segment display cathodes. The common anodes of the 7-segment display were connected to the 3.3V supply and GPIO pins of the FPGA through the 2N3906 transistors.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2SevenSegSchematic.jpg" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure 4. Schematic of all circuit components outside the PCB for the dual 7-segment</strong></figcaption>
+<figcaption><strong>Figure 5. Schematic of all circuit components outside the PCB for the dual 7-segment</strong></figcaption>
 </figure>
 </div>
-<p>The schematic in Figure 5 shows the physical circuit connections outside the PCB for the keypad scanner portion of the design. The specified GPIO pins were connected to current limiting resistors and diodes for the LED outputs, and 2N3904 transistors connected to the 4x4 keypad to write rows. Pins were also connected to the keypad columns to collect as inputs.</p>
+<p>The schematic in Figure 6 shows the physical circuit connections outside the PCB for the keypad scanner portion of the design. The specified GPIO pins were connected to current limiting resistors and diodes for the LED outputs, and 2N3904 transistors connected to the 4x4 keypad to write rows. Pins were also connected to the keypad columns to collect as inputs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2KeypadSchematic.jpg" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure 5. Schematic of all circuit components outside the PCB for the keypad scanner</strong></figcaption>
+<figcaption><strong>Figure 6. Schematic of all circuit components outside the PCB for the keypad scanner</strong></figcaption>
 </figure>
 </div>
 </section>
@@ -255,7 +256,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The design met all intended design objectives.</p>
 <section id="testbench-simulation" class="level3">
 <h3 class="anchored" data-anchor-id="testbench-simulation">Testbench Simulation</h3>
-<p>Figure 6 shows a screenshot of the QuestaSim simulation waveforms for my scanning submodule testbench. It behaved correctly because after each 1/8 stepped-down clock cycle, the output rows were correct, including after a reset and after setting enable to low and then resetting again. This is also demonstrated by the automatic testbench outputs (see Figure 7).</p>
+<p>Figure 7 shows a screenshot of the QuestaSim simulation waveforms for my scanning submodule testbench. It behaved correctly because after each 1/8 stepped-down clock cycle, the output rows were correct, including after a reset and after setting enable to low and then resetting again. This is also demonstrated by the automatic testbench outputs (see Figure 8).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -271,7 +272,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2waves-scanner.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 6. Scanning submodule simulation waveforms</figcaption>
+<figcaption>Figure 7. Scanning submodule simulation waveforms</figcaption>
 </figure>
 </div>
 </div>
@@ -292,13 +293,13 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2testbench-scanner.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 7. Scanning submodule testbench outputs</figcaption>
+<figcaption>Figure 8. Scanning submodule testbench outputs</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </div>
-<p>Figure 8 shows a screenshot of the QuestaSim siimulation waveforms for my top module. It behaved correctly because after waiting for the anodes to invert, the segments were written correctly (demonstrating mux behaviour), and the LED outputs were always inverted signals compared to the column inputs. This is also demonstrated by the automatic testbench outputs (see Figure 9).</p>
+<p>Figure 9 shows a screenshot of the QuestaSim siimulation waveforms for my top module. It behaved correctly because after waiting for the anodes to invert, the segments were written correctly (demonstrating mux behaviour), and the LED outputs were always inverted signals compared to the column inputs. This is also demonstrated by the automatic testbench outputs (see Figure 10).</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -314,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2waves-top.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 8. Scanning submodule simulation waveforms</figcaption>
+<figcaption>Figure 9. Scanning submodule simulation waveforms</figcaption>
 </figure>
 </div>
 </div>
@@ -335,7 +336,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/lab2testbench-top.png" class="img-fluid figure-img"></p>
-<figcaption>Figure 9. Scanning submodule testbench outputs</figcaption>
+<figcaption>Figure 10. Scanning submodule testbench outputs</figcaption>
 </figure>
 </div>
 </div>
@@ -348,7 +349,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="oscilloscope-testing" class="level3">
 <h3 class="anchored" data-anchor-id="oscilloscope-testing">Oscilloscope Testing</h3>
-<p>The keypad scanning LED frequency was confirmed using an oscilloscope. When the oscilloscope was connected on each end of the LED the signal was observed as in Figure 10.</p>
+<p>The keypad scanning LED frequency was confirmed using an oscilloscope. When the oscilloscope was connected on each end of the LED the signal was observed as in Figure 11.</p>
 <div id="fig-oscopeTraces" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-oscopeTraces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -382,15 +383,15 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-oscopeTraces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: <strong>Figure 10. Oscope Traces for LED Outputs</strong>
+Figure&nbsp;1: <strong>Figure 11. Oscope Traces for LED Outputs</strong>
 </figcaption>
 </figure>
 </div>
-<p>When the oscilloscope was connected to each row output, the signals were observed as in Figure 11.</p>
+<p>When the oscilloscope was connected to each row output, the signals were observed as in Figure 12.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/scope_8.png" class="img-fluid figure-img"></p>
-<figcaption><strong>Figure 11. Oscope Trace for Row Outputs</strong></figcaption>
+<figcaption><strong>Figure 12. Oscope Trace for Row Outputs</strong></figcaption>
 </figure>
 </div>
 <p>All signals oscillate at 2Hz as expected. For the LED outputs, the width of the high signal increases as more adjacent buttons are added, because the LED is on whenever the column is pressed and the row signal is on. As the row signal moves from row 1 to row 2 while the switch is still pressed, the column output will remain for the duration of both rows “ON”s.</p>
