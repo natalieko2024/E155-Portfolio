@@ -58,7 +58,7 @@ The schematic in Figure 6 shows the physical circuit connections outside the PCB
 ![**Figure 6. Schematic of all circuit components outside the PCB for the keypad scanner**](images/lab2KeypadSchematic.jpg)
 
 ## Results and Discussion
-The design met all intended design objectives.
+The design met all intended design objectives. 
 
 ### Testbench Simulation
 Figure 7 shows a screenshot of the QuestaSim simulation waveforms for my scanning submodule testbench. It behaved correctly because after each 1/8 stepped-down clock cycle, the output rows were correct, including after a reset and after setting enable to low and then resetting again. This is also demonstrated by the automatic testbench outputs (see Figure 8).
