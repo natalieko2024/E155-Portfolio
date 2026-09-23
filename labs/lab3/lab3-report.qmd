@@ -54,9 +54,9 @@ The schematic in Figure 5 shows the physical circuit connections outside the PCB
 The design met all intended design objectives.
 
 ### Synthesizer Warnings
-![**Figure 6. Image of Radiant Synthesizer Outputs**](images/synthesizeErrors.png)
+![**Figure 6. Image of Radiant Synthesizer Outputs**](images/newSynthesize.png)
 
-Radiant didn't give me any errors, warnings of latches or tristate buffers etc. The only warning I got was that my bitwidths didn't match and my pdc file had extra lines I wasn't using (this was left over from debuggins - sorry!), but these do not affect deployment.
+Radiant didn't give me any errors, warnings of latches or tristate buffers etc. The only warning I got was that my ports were rejected, but these do not affect deployment.
 
 ### Testbench Simulation
 Figure 7 shows a screenshot of the QuestaSim simulation waveforms for my flip flop submodule. It behaved correctly because the output is always 1 clock rising edge behind the input when enabled. When disabled the output stops flowing, and when reset the output is set to 0. This was also confirmed by my automatic testbench (figure 8).
