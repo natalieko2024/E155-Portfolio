@@ -157,7 +157,7 @@ Figures 21 and 22 show the QuestaSim simulation waveforms and testench output fo
 
 ### Hardware Deployment
 Video showcasing the design running on hardware.
-{{< video https://youtu.be/cGjVHboU0Es >}}
+{{< video https://youtu.be/qhZsKVxzVlM >}}
 
 ## Conclusion
 The design successfully scanned a 4x4 matrix keypad and mapped the last two inputs to a dual 7-segment display, accounting for single and multi-key presses.
