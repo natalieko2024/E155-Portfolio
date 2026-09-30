@@ -11,7 +11,7 @@ title: "E155 Labs"
 [Lab 3 report here](labs/lab3/lab3-report.html)
 
 ## Lab 4: Digital Audio
-Lab 4 report coming soon!
+[Lab 4 report here](labs/lab4/lab4-report.html)
 
 ## Lab 5: Interrupts
 Lab 5 report coming soon!
