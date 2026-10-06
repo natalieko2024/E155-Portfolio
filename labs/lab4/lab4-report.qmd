@@ -48,9 +48,11 @@ To confirm my design could play all notes in Für Elise accurately, I calculated
 ### Hardware Deployment
 This video showcases the design running on the MCU and speaker circuit, successfully playing the Für Elise score.
 
+{{< video https://youtu.be/gsBTgKf125U >}}
 
 I also created an additional score, which allowed the design to play the intro to the song "Fireflies".
 
+{{< video https://youtu.be/Bo4-SabeIXc >}}
 
 ## Conclusion
 The design successfully utilized timers in the MCU to play Für Elise and Fireflies on a speaker.
