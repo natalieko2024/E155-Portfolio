@@ -14,7 +14,7 @@ title: "E155 Labs"
 [Lab 4 report here](labs/lab4/lab4-report.html)
 
 ## Lab 5: Interrupts
-Lab 5 report coming soon!
+[Lab 5 report here](labs/lab5/lab5-report.html)
 
 ## Lab 6: The Internet of Things and Serial Peripheral Interface
 Lab 6 report coming soon!
