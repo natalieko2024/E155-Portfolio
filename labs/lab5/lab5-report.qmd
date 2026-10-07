@@ -30,13 +30,13 @@ The implementation also utilizes a timer to print out the speed and direction at
 
 Interrupts are the better option compared to manual polling at high speeds, because with this setup, you never miss a rising and falling edge, whereas the polling intervals may not be fine enough, leading to missed edges. Furthermore, polling doesn't guarantee we sample at a rising or falling edge, and we are relying on the fact that the two encoder sensors are 90° out of phase. With manual polling, you could sample within the high/low region of either signal incorrectly assume counterclockwise/clockwise motion. If we spin the motor at its maximum theoretical speed of 2.5rev/s, we would need a minimum polling frequency of 4080Hz to accurately capture all pulses (since A and B are 90° out of phase, there are 408 pulses per revolution, and we want 4 samples per pulse). However, the polling frequency needed to accurately measure the motor speed and direction would change as the motor speed changes, because you would be sampling at not clock edge times. Therefore, using interrupts are better.
 
-One possible tradeoff is that when you use interrupts, everything on the MCU CPU stops running, whereas with polling, nothing stops running while data is being taken. So polling can take samples continuously no matter what, whereas if the interrupt is very long, you might miss signals. However, in our case our interrupt is extremely short so this effect is negligible.
+One possible tradeoff is that when you use interrupts, everything on the MCU CPU stops running, whereas with polling, nothing stops running while data is being taken. So polling can take samples continuously no matter what, whereas if the interrupt is very long, you might miss signals. However, in our case our interrupt is extremely short, so this effect is negligible.
 
 ## Technical Documentation
 The source code for the project can be found in the associated [GitHub repository](https://github.com/natalieko2024/E155-Labs/tree/main/E155-Lab5).
 
 ### Schematic
-![**Figure 4. Schematic of all circuit components outside the PCB**](images/lab5schematic.jpeg)
+![**Figure 4. Schematic of all circuit components outside the PCB**](images/lab5schematic.png)
 
 The schematic in Figure 5 shows the physical circuit connections outside the PCB. The encoder sensor pins and power pins were connected to the board, while the motor power terminals were connected directly to a voltage source.
 
