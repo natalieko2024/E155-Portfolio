@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Natalie Ko">
+<meta name="dcterms.date" content="2026-10-14">
+<meta name="description" content="Lab Report for E155 Lab 6">
+
+<title>Lab 6 Report: The Internet of Things and Serial Peripheral Interface – E155 Portfolio</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-445b8638c3d06994fee0907d791121c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">E155 Portfolio</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../labs.html"> 
+<span class="menu-text">Labs</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resources.html"> 
+<span class="menu-text">Resources</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#design-and-testing-methodology" id="toc-design-and-testing-methodology" class="nav-link" data-scroll-target="#design-and-testing-methodology">Design and Testing Methodology</a></li>
+  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation</a>
+  <ul class="collapse">
+  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
+  </ul></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
+  <ul class="collapse">
+  <li><a href="#hardware-deployment" id="toc-hardware-deployment" class="nav-link" data-scroll-target="#hardware-deployment">Hardware Deployment</a></li>
+  <li><a href="#oscilloscope-confirmation" id="toc-oscilloscope-confirmation" class="nav-link" data-scroll-target="#oscilloscope-confirmation">Oscilloscope Confirmation</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#ai-prototype-summary" id="toc-ai-prototype-summary" class="nav-link" data-scroll-target="#ai-prototype-summary">AI Prototype Summary</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lab 6 Report: The Internet of Things and Serial Peripheral Interface</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">reflection</div>
+    <div class="quarto-category">labreport</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Lab Report for E155 Lab 6
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Natalie Ko </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 14, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, a design was implemented on the MCU to host a web server on an ESP8266 through UART communication and read temperature readings of various resolutions using a temperature sensor through SPI communication. Data from the peripherals connected to the MCU would be displayed on the webpage.</p>
+</section>
+<section id="design-and-testing-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="design-and-testing-methodology">Design and Testing Methodology</h2>
+<p>On the MCU, SPI was configured for full-duplex communication. This was chosen over simplex communications because apart from receiving temperature readings from the sensor, the MCU would have to write to the configuration register throughout deployment to adjust the resolution of the temperature communicated. It was also chosen over half-duplex communication to increase the speed the devices could communicate at, which would lead to more accurate readings.</p>
+<p>The temperature sensor used (DS1722) required a clock phase (CPHA) of 1. I chose to use a clock polarity (CPOL) of 1 so that data would be sampled on the rising edge of SCK.</p>
+<p>Full-duplex SPI communication works by each device sending and receiving bits at the same time. So, for writing to the temperature sensor (ex. for writing the initial configuration and for writing new resolution bits), I would write the entire configuration and receive junk in return (that I wouldn’t use). For reading temperatures from the sensor, I would write junk bits to the sensor and receive the temperature bits in return. Because of how the temperature sensor registers were configured, I would read the integer bits and decimal bits separately.</p>
+<p>The MCU and ESP8266 interface through a 125000 baud serial UART connection on TX and RX lines. Because of this, to prevent sampling differences, the MCU and temperature sensor baud rate was also set to 125000.</p>
+<p>HTML code was written so that the temperature and LED data could be properly displayed on the webpage, and users could press buttons to toggle the LED state and change the temperature resolution.</p>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<p>The source code for the project can be found in the associated <a href="https://github.com/natalieko2024/E155-Labs/tree/main/E155-Lab6">GitHub repository</a>.</p>
+<section id="schematic" class="level3">
+<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab6schematic.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 1. Schematic of all circuit components outside the PCB</figcaption>
+</figure>
+</div>
+<p>The schematic in Figure 1 shows the physical circuit connections outside the PCB. The ESP8266 was not included as that was plugged directly into the motherboard.</p>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>The design met all intended design objectives.</p>
+<section id="hardware-deployment" class="level3">
+<h3 class="anchored" data-anchor-id="hardware-deployment">Hardware Deployment</h3>
+<p>This video showcases the design webpage outputs and LED states when each button is pressed. The LED state matches the LED on/off in real life, and the maximum number of decimal values the temperature sensor displays matches the selected resolution.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/h1CneQq5_-U" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</section>
+<section id="oscilloscope-confirmation" class="level3">
+<h3 class="anchored" data-anchor-id="oscilloscope-confirmation">Oscilloscope Confirmation</h3>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/config.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2. Oscilloscope trace for writing sensor configuration</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/read.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 3. Oscilloscope trace for reading temperature values</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/write.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 4. Oscilloscope trace for writing a new sensor resolution</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>These oscilloscope traces confirm the intended SPI behaviour during configuration, read, and write. CS was pulled high during read/write and pulled low otherwise, and the correct values were transmitted over MISO and MOSI.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The design successfully utilized SPI and UART.</p>
+<p>I spend 8.5 hours working on this lab.</p>
+</section>
+<section id="ai-prototype-summary" class="level2">
+<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Click to view LLM output for prompt 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{html}"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en" class="dark"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;IoT Sensor &amp; LED Controller Dashboard&lt;/title&gt;
+    &lt;!-- Tailwind CSS CDN --&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0b0f19',
+                        cardBg: '#111827',
+                        cardBorder: '#1f2937',
+                        accentBlue: '#3b82f6',
+                        accentTeal: '#14b8a6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    &lt;/script&gt;
+    &lt;!-- Chart.js CDN --&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;
+    &lt;!-- Lucide Icons CDN --&gt;
+    &lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;
+    &lt;style&gt;
+        /* Custom scrollbar for terminal/console */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #21262d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #30363d;
+        }
+        /* Radial Gauge Gradient &amp; Animation */
+        .gauge-circle {
+            transition: stroke-dashoffset 0.5s ease, stroke 0.5s ease;
+        }
+        /* LED Glow Effect */
+        .led-glow {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.96); }
+        }
+        .animate-led-pulse {
+            animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white"&gt;
+
+    &lt;!-- Top Navigation Header --&gt;
+    &lt;header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50"&gt;
+        &lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"&gt;
+            &lt;div class="flex items-center gap-3"&gt;
+                &lt;div class="p-2 bg-blue-500/10 border border-blue-500/20 rounded-xl text-blue-400"&gt;
+                    &lt;i data-lucide="cpu" class="w-6 h-6"&gt;&lt;/i&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;h1 class="text-lg font-bold tracking-wide text-white leading-tight"&gt;ESP32 Thermosense Pro&lt;/h1&gt;
+                    &lt;p class="text-xs text-slate-400"&gt;Node ID: &lt;span class="font-mono text-slate-300"&gt;ESP32-DS18B20-A4F&lt;/span&gt;&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Header Connection Info &amp; Quick Toggles --&gt;
+            &lt;div class="flex items-center gap-4"&gt;
+                &lt;div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/40 border border-emerald-500/30 text-emerald-400 text-xs font-medium"&gt;
+                    &lt;span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"&gt;&lt;/span&gt;
+                    &lt;span class="w-2 h-2 rounded-full bg-emerald-400 -ml-4"&gt;&lt;/span&gt;
+                    &lt;span id="connection-status-text"&gt;Connected (WS Online)&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="text-xs text-slate-400 hidden md:block"&gt;
+                    Latency: &lt;span id="ping-latency" class="font-mono text-slate-200"&gt;18ms&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;button id="theme-toggle" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors border border-slate-700" title="Toggle Light/Dark Theme"&gt;
+                    &lt;i data-lucide="moon" class="w-4 h-4" id="theme-icon"&gt;&lt;/i&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;!-- Main Container --&gt;
+    &lt;main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6"&gt;
+
+        &lt;!-- Grid Layout for Dashboard Cards --&gt;
+        &lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-6"&gt;
+
+            &lt;!-- LEFT COLUMN: Temperature Section (8 cols) --&gt;
+            &lt;div class="lg:col-span-8 space-y-6"&gt;
+
+                &lt;!-- Main Temperature Readout Card --&gt;
+                &lt;div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden"&gt;
+                    &lt;div class="absolute -right-16 -top-16 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"&gt;&lt;/div&gt;
+
+                    &lt;!-- Card Header --&gt;
+                    &lt;div class="flex flex-wrap items-center justify-between gap-4 mb-6"&gt;
+                        &lt;div class="flex items-center gap-2"&gt;
+                            &lt;i data-lucide="thermometer" class="w-5 h-5 text-blue-400"&gt;&lt;/i&gt;
+                            &lt;h2 class="font-semibold text-slate-200 text-base"&gt;Real-Time Temperature&lt;/h2&gt;
+                        &lt;/div&gt;
+                        
+                        &lt;!-- Unit Toggle Button Group --&gt;
+                        &lt;div class="bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 flex items-center gap-1 text-xs font-semibold"&gt;
+                            &lt;button id="btn-celsius" onclick="setUnit('C')" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition-all"&gt;°C (Celsius)&lt;/button&gt;
+                            &lt;button id="btn-fahrenheit" onclick="setUnit('F')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all"&gt;°F (Fahrenheit)&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Gauge and Numeric Display --&gt;
+                    &lt;div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center"&gt;
+                        
+                        &lt;!-- Gauge SVG Graphic --&gt;
+                        &lt;div class="md:col-span-6 flex flex-col items-center justify-center relative py-2"&gt;
+                            &lt;svg class="w-52 h-52 transform -rotate-90" viewBox="0 0 120 120"&gt;
+                                &lt;!-- Background Track --&gt;
+                                &lt;circle cx="60" cy="60" r="50" class="stroke-slate-800" stroke-width="10" fill="transparent" /&gt;
+                                &lt;!-- Dynamic Gauge Fill Track --&gt;
+                                &lt;circle id="gauge-circle" cx="60" cy="60" r="50" class="gauge-circle stroke-blue-500" stroke-width="10" 
+                                        stroke-dasharray="314.15" stroke-dashoffset="150" stroke-linecap="round" fill="transparent" /&gt;
+                            &lt;/svg&gt;
+                            &lt;!-- Inner Readout Text --&gt;
+                            &lt;div class="absolute flex flex-col items-center justify-center text-center"&gt;
+                                &lt;span id="temp-display" class="text-4xl sm:text-5xl font-black tracking-tight text-white font-mono"&gt;23.5°C&lt;/span&gt;
+                                &lt;span id="temp-status-badge" class="mt-2 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20"&gt;
+                                    Optimal Range
+                                &lt;/span&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Temperature Meta Statistics --&gt;
+                        &lt;div class="md:col-span-6 grid grid-cols-2 gap-4"&gt;
+                            &lt;div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4"&gt;
+                                &lt;div class="flex items-center gap-2 text-slate-400 text-xs mb-1"&gt;
+                                    &lt;i data-lucide="arrow-down-right" class="w-4 h-4 text-cyan-400"&gt;&lt;/i&gt;
+                                    Min Recorded
+                                &lt;/div&gt;
+                                &lt;div id="temp-min" class="text-xl font-bold font-mono text-slate-100"&gt;19.2 °C&lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4"&gt;
+                                &lt;div class="flex items-center gap-2 text-slate-400 text-xs mb-1"&gt;
+                                    &lt;i data-lucide="arrow-up-right" class="w-4 h-4 text-rose-400"&gt;&lt;/i&gt;
+                                    Max Recorded
+                                &lt;/div&gt;
+                                &lt;div id="temp-max" class="text-xl font-bold font-mono text-slate-100"&gt;28.7 °C&lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4"&gt;
+                                &lt;div class="flex items-center gap-2 text-slate-400 text-xs mb-1"&gt;
+                                    &lt;i data-lucide="activity" class="w-4 h-4 text-amber-400"&gt;&lt;/i&gt;
+                                    Avg Temperature
+                                &lt;/div&gt;
+                                &lt;div id="temp-avg" class="text-xl font-bold font-mono text-slate-100"&gt;23.8 °C&lt;/div&gt;
+                            &lt;/div&gt;
+
+                            &lt;div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4"&gt;
+                                &lt;div class="flex items-center gap-2 text-slate-400 text-xs mb-1"&gt;
+                                    &lt;i data-lucide="clock" class="w-4 h-4 text-indigo-400"&gt;&lt;/i&gt;
+                                    Last Sync
+                                &lt;/div&gt;
+                                &lt;div id="last-update-time" class="text-sm font-bold font-mono text-slate-100 mt-1"&gt;Just now&lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Historical Temperature Chart --&gt;
+                    &lt;div class="mt-8"&gt;
+                        &lt;div class="flex items-center justify-between mb-3"&gt;
+                            &lt;h3 class="text-sm font-semibold text-slate-300 flex items-center gap-2"&gt;
+                                &lt;i data-lucide="line-chart" class="w-4 h-4 text-slate-400"&gt;&lt;/i&gt;
+                                Historical Telemetry Trend
+                            &lt;/h3&gt;
+                            &lt;span class="text-xs text-slate-500 font-mono"&gt;Live 60s window&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;div class="h-56 w-full relative"&gt;
+                            &lt;canvas id="tempChart"&gt;&lt;/canvas&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+            &lt;!-- RIGHT COLUMN: Control Panels (4 cols) --&gt;
+            &lt;div class="lg:col-span-4 space-y-6"&gt;
+
+                &lt;!-- LED Control Section --&gt;
+                &lt;div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                        &lt;div class="flex items-center gap-2"&gt;
+                            &lt;i data-lucide="lightbulb" class="w-5 h-5 text-amber-400"&gt;&lt;/i&gt;
+                            &lt;h2 class="font-semibold text-slate-200 text-base"&gt;LED Controller&lt;/h2&gt;
+                        &lt;/div&gt;
+                        &lt;!-- Toggle Switch --&gt;
+                        &lt;label class="relative inline-flex items-center cursor-pointer"&gt;
+                            &lt;input type="checkbox" id="led-toggle" class="sr-only peer" onchange="toggleLed(this.checked)" checked&gt;
+                            &lt;div class="w-11 h-6 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"&gt;&lt;/div&gt;
+                        &lt;/label&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Interactive LED Visualizer Box --&gt;
+                    &lt;div class="flex flex-col items-center justify-center py-6 bg-slate-950/80 rounded-xl border border-slate-800 relative overflow-hidden"&gt;
+                        &lt;div id="led-indicator" class="w-20 h-20 rounded-full bg-blue-500 led-glow flex items-center justify-center shadow-lg shadow-blue-500/50"&gt;
+                            &lt;i data-lucide="zap" id="led-icon" class="w-8 h-8 text-white transition-opacity duration-300"&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;span id="led-status-text" class="mt-4 text-xs font-mono text-slate-400 uppercase tracking-widest"&gt;Active • 80% PWM&lt;/span&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Brightness Slider --&gt;
+                    &lt;div class="space-y-2"&gt;
+                        &lt;div class="flex justify-between text-xs text-slate-300"&gt;
+                            &lt;span&gt;Brightness / PWM&lt;/span&gt;
+                            &lt;span id="pwm-val" class="font-mono text-blue-400 font-bold"&gt;80%&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input type="range" id="pwm-slider" min="0" max="100" value="80" oninput="updatePwm(this.value)" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Preset LED Modes --&gt;
+                    &lt;div class="space-y-2"&gt;
+                        &lt;label class="text-xs text-slate-400 font-medium"&gt;Lighting Preset Mode&lt;/label&gt;
+                        &lt;div class="grid grid-cols-3 gap-2"&gt;
+                            &lt;button onclick="setLedMode('solid')" id="mode-solid" class="py-2 px-3 text-xs rounded-lg border border-blue-500/50 bg-blue-500/10 text-blue-400 font-medium transition-all"&gt;Solid&lt;/button&gt;
+                            &lt;button onclick="setLedMode('pulse')" id="mode-pulse" class="py-2 px-3 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-medium hover:border-slate-700 transition-all"&gt;Pulse&lt;/button&gt;
+                            &lt;button onclick="setLedMode('temp-warn')" id="mode-warn" class="py-2 px-3 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-medium hover:border-slate-700 transition-all"&gt;Auto Warn&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Quick Color Pickers --&gt;
+                    &lt;div class="space-y-2"&gt;
+                        &lt;label class="text-xs text-slate-400 font-medium"&gt;Color Selection&lt;/label&gt;
+                        &lt;div class="flex items-center gap-3"&gt;
+                            &lt;button onclick="setLedColor('#3b82f6')" class="w-8 h-8 rounded-full bg-blue-500 ring-2 ring-slate-800 hover:scale-110 transition-transform"&gt;&lt;/button&gt;
+                            &lt;button onclick="setLedColor('#10b981')" class="w-8 h-8 rounded-full bg-emerald-500 ring-2 ring-slate-800 hover:scale-110 transition-transform"&gt;&lt;/button&gt;
+                            &lt;button onclick="setLedColor('#f59e0b')" class="w-8 h-8 rounded-full bg-amber-500 ring-2 ring-slate-800 hover:scale-110 transition-transform"&gt;&lt;/button&gt;
+                            &lt;button onclick="setLedColor('#ef4444')" class="w-8 h-8 rounded-full bg-rose-500 ring-2 ring-slate-800 hover:scale-110 transition-transform"&gt;&lt;/button&gt;
+                            &lt;button onclick="setLedColor('#a855f7')" class="w-8 h-8 rounded-full bg-purple-500 ring-2 ring-slate-800 hover:scale-110 transition-transform"&gt;&lt;/button&gt;
+                            
+                            &lt;div class="relative ml-auto"&gt;
+                                &lt;input type="color" id="custom-color-picker" value="#3b82f6" onchange="setLedColor(this.value)" class="w-8 h-8 opacity-0 absolute cursor-pointer"&gt;
+                                &lt;div class="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center bg-slate-800 text-slate-300 pointer-events-none"&gt;
+                                    &lt;i data-lucide="pipette" class="w-4 h-4"&gt;&lt;/i&gt;
+                                &lt;/div&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Sensor Precision &amp; Sampling Control Panel --&gt;
+                &lt;div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6"&gt;
+                    &lt;div class="flex items-center gap-2"&gt;
+                        &lt;i data-lucide="sliders" class="w-5 h-5 text-indigo-400"&gt;&lt;/i&gt;
+                        &lt;h2 class="font-semibold text-slate-200 text-base"&gt;Sensor Configuration&lt;/h2&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Precision Selection --&gt;
+                    &lt;div class="space-y-2"&gt;
+                        &lt;label class="text-xs text-slate-400 font-medium"&gt;Readout Precision Decimal Places&lt;/label&gt;
+                        &lt;div class="grid grid-cols-4 gap-2"&gt;
+                            &lt;button onclick="setPrecision(0)" id="prec-0" class="py-2 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-mono transition-all"&gt;0 (.0)&lt;/button&gt;
+                            &lt;button onclick="setPrecision(1)" id="prec-1" class="py-2 text-xs rounded-lg border border-indigo-500/50 bg-indigo-500/10 text-indigo-400 font-mono transition-all"&gt;1 (.1)&lt;/button&gt;
+                            &lt;button onclick="setPrecision(2)" id="prec-2" class="py-2 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-mono transition-all"&gt;2 (.01)&lt;/button&gt;
+                            &lt;button onclick="setPrecision(3)" id="prec-3" class="py-2 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-mono transition-all"&gt;3 (.001)&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+
+                    &lt;!-- Update Frequency Slider --&gt;
+                    &lt;div class="space-y-2"&gt;
+                        &lt;div class="flex justify-between text-xs text-slate-300"&gt;
+                            &lt;span&gt;Sampling Interval&lt;/span&gt;
+                            &lt;span id="interval-val" class="font-mono text-indigo-400 font-bold"&gt;1000 ms&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input type="range" id="interval-slider" min="200" max="5000" step="100" value="1000" oninput="updateInterval(this.value)" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"&gt;
+                        &lt;div class="flex justify-between text-[10px] text-slate-500 font-mono"&gt;
+                            &lt;span&gt;200ms (Fast)&lt;/span&gt;
+                            &lt;span&gt;5000ms (Power Save)&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;!-- Embedded Developer API / WebSocket Console --&gt;
+        &lt;div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4"&gt;
+            &lt;div class="flex flex-wrap items-center justify-between gap-4"&gt;
+                &lt;div class="flex items-center gap-2"&gt;
+                    &lt;i data-lucide="terminal" class="w-5 h-5 text-emerald-400"&gt;&lt;/i&gt;
+                    &lt;h2 class="font-semibold text-slate-200 text-base"&gt;Developer API &amp; Telemetry Log&lt;/h2&gt;
+                    &lt;span class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-400 border border-slate-700"&gt;ws://192.168.1.105:81&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div class="flex items-center gap-2"&gt;
+                    &lt;button onclick="toggleConsolePause()" id="btn-pause-log" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition-colors"&gt;
+                        &lt;i data-lucide="pause" class="w-3.5 h-3.5" id="pause-icon"&gt;&lt;/i&gt;
+                        &lt;span id="pause-text"&gt;Pause&lt;/span&gt;
+                    &lt;/button&gt;
+                    &lt;button onclick="clearLogs()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1.5 transition-colors"&gt;
+                        &lt;i data-lucide="trash-2" class="w-3.5 h-3.5"&gt;&lt;/i&gt;
+                        Clear
+                    &lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Terminal Output Window --&gt;
+            &lt;div id="console-output" class="h-44 bg-slate-950 rounded-xl p-4 font-mono text-xs overflow-y-auto space-y-1.5 border border-slate-800/80"&gt;
+                &lt;!-- Log entries dynamically inserted here --&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+    &lt;/main&gt;
+
+    &lt;!-- Footer --&gt;
+    &lt;footer class="border-t border-slate-800/80 bg-slate-900/40 py-4 text-center text-xs text-slate-500"&gt;
+        Embedded IoT Controller Web Interface • Firmware v2.4.1 • Microcontroller Board: ESP32-WROOM-32
+    &lt;/footer&gt;
+
+    &lt;!-- JavaScript Logic Application --&gt;
+    &lt;script&gt;
+        // State Management
+        const state = {
+            currentUnit: 'C',          // 'C' or 'F'
+            temperatureC: 23.518,       // Base temperature in Celsius
+            precision: 1,              // Decimal places
+            samplingInterval: 1000,    // Update speed in ms
+            isLedOn: true,
+            ledBrightness: 80,         // Percentage
+            ledColor: '#3b82f6',       // Hex color
+            ledMode: 'solid',          // 'solid', 'pulse', 'temp-warn'
+            logsPaused: false,
+            minTempC: 19.2,
+            maxTempC: 28.7,
+            tempHistory: []            // Array for chart
+        };
+
+        let updateTimer = null;
+        let chart = null;
+
+        // Initialize Icons &amp; Dashboard
+        window.addEventListener('DOMContentLoaded', () =&gt; {
+            lucide.createIcons();
+            initChart();
+            startTelemetryLoop();
+            updateLedVisuals();
+            logConsole('SYSTEM', 'Dashboard initialised. WebSocket connection established.');
+        });
+
+        // Initialize Chart.js
+        function initChart() {
+            const ctx = document.getElementById('tempChart').getContext('2d');
+            
+            // Generate initial mock telemetry data
+            const labels = Array.from({length: 20}, (_, i) =&gt; `${(20 - i) * 2}s ago`).reverse();
+            const initialData = Array.from({length: 20}, () =&gt; (22 + Math.random() * 3).toFixed(2));
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Temperature',
+                        data: initialData,
+                        borderColor: '#3b82f6',
+                        borderWidth: 2,
+                        backgroundColor: (context) =&gt; {
+                            const bgCtx = context.chart.ctx;
+                            const gradient = bgCtx.createLinearGradient(0, 0, 0, 200);
+                            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+                            gradient.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+                            return gradient;
+                        },
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointHoverRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 300 },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#64748b', font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            titleColor: '#f8fafc',
+                            bodyColor: '#38bdf8',
+                            borderColor: '#334155',
+                            borderWidth: 1,
+                            displayColors: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Main Simulated Telemetry Loop
+        function startTelemetryLoop() {
+            if (updateTimer) clearInterval(updateTimer);
+
+            updateTimer = setInterval(() =&gt; {
+                // Simulate small temperature fluctuation
+                const delta = (Math.random() - 0.48) * 0.3;
+                state.temperatureC = Math.max(15, Math.min(42, state.temperatureC + delta));
+
+                // Update min/max bounds dynamically
+                if (state.temperatureC &lt; state.minTempC) state.minTempC = state.temperatureC;
+                if (state.temperatureC &gt; state.maxTempC) state.maxTempC = state.temperatureC;
+
+                updateUI();
+
+                // Auto temperature warning LED effect
+                if (state.ledMode === 'temp-warn') {
+                    handleTempWarningMode();
+                }
+
+                // Append simulated WebSocket payload log
+                const precisionTemp = state.temperatureC.toFixed(state.precision);
+                logConsole('RX', JSON.stringify({
+                    sensor: 'DS18B20',
+                    temp_c: parseFloat(precisionTemp),
+                    humidity_pct: (45 + Math.random() * 5).toFixed(1),
+                    rssi_dbm: -62 + Math.floor(Math.random() * 4)
+                }));
+
+            }, state.samplingInterval);
+        }
+
+        // Update UI Elements with Latest State
+        function updateUI() {
+            const isCelsius = state.currentUnit === 'C';
+            const displayTempRaw = isCelsius ? state.temperatureC : (state.temperatureC * 9/5) + 32;
+            const unitSymbol = isCelsius ? '°C' : '°F';
+            
+            // Format according to precision state
+            const formattedTemp = displayTempRaw.toFixed(state.precision);
+            document.getElementById('temp-display').innerText = `${formattedTemp}${unitSymbol}`;
+
+            // Min / Max Updates
+            const minDisplay = isCelsius ? state.minTempC : (state.minTempC * 9/5) + 32;
+            const maxDisplay = isCelsius ? state.maxTempC : (state.maxTempC * 9/5) + 32;
+            document.getElementById('temp-min').innerText = `${minDisplay.toFixed(state.precision)} ${unitSymbol}`;
+            document.getElementById('temp-max').innerText = `${maxDisplay.toFixed(state.precision)} ${unitSymbol}`;
+
+            // Gauge SVG Circle Calculations (0°C to 40°C mapped to 0-100%)
+            const minRange = isCelsius ? 10 : 50;
+            const maxRange = isCelsius ? 40 : 104;
+            const percentage = Math.min(100, Math.max(0, ((displayTempRaw - minRange) / (maxRange - minRange)) * 100));
+            
+            const circle = document.getElementById('gauge-circle');
+            const circumference = 2 * Math.PI * 50; // r=50 -&gt; 314.15
+            const strokeOffset = circumference - (percentage / 100) * circumference;
+            circle.style.strokeDashoffset = strokeOffset;
+
+            // Gauge Color Interpolation based on Heat
+            let colorHex = '#3b82f6'; // Cool Blue
+            let badgeText = 'Cool / Normal';
+            let badgeClass = 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+
+            if (state.temperatureC &gt; 28) {
+                colorHex = '#ef4444'; // Hot Red
+                badgeText = 'High Temp';
+                badgeClass = 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+            } else if (state.temperatureC &gt; 24) {
+                colorHex = '#f59e0b'; // Warm Amber
+                badgeText = 'Optimal Warm';
+                badgeClass = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+            }
+
+            circle.style.stroke = colorHex;
+            
+            // Update Status Badge
+            const badgeEl = document.getElementById('temp-status-badge');
+            badgeEl.className = `mt-2 px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badgeClass}`;
+            badgeEl.innerText = badgeText;
+
+            // Update Time Timestamp
+            const now = new Date();
+            document.getElementById('last-update-time').innerText = now.toLocaleTimeString();
+
+            // Update Chart Data Stream
+            if (chart) {
+                chart.data.labels.push(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+                chart.data.datasets[0].data.push(displayTempRaw.toFixed(state.precision));
+                chart.data.datasets[0].borderColor = colorHex;
+
+                if (chart.data.labels.length &gt; 20) {
+                    chart.data.labels.shift();
+                    chart.data.datasets[0].data.shift();
+                }
+                chart.update('none'); // Update without full redraw animation for performance
+            }
+        }
+
+        // Temperature Unit Switcher
+        function setUnit(unit) {
+            if (state.currentUnit === unit) return;
+            state.currentUnit = unit;
+
+            const btnC = document.getElementById('btn-celsius');
+            const btnF = document.getElementById('btn-fahrenheit');
+
+            if (unit === 'C') {
+                btnC.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition-all';
+                btnF.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all';
+            } else {
+                btnF.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition-all';
+                btnC.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all';
+            }
+
+            logConsole('TX', JSON.stringify({ command: 'set_unit', value: unit }));
+            updateUI();
+        }
+
+        // Precision Control
+        function setPrecision(dec) {
+            state.precision = dec;
+            
+            // Highlight button styling
+            [0, 1, 2, 3].forEach(p =&gt; {
+                const btn = document.getElementById(`prec-${p}`);
+                if (p === dec) {
+                    btn.className = 'py-2 text-xs rounded-lg border border-indigo-500/50 bg-indigo-500/10 text-indigo-400 font-mono transition-all font-bold';
+                } else {
+                    btn.className = 'py-2 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-mono transition-all';
+                }
+            });
+
+            logConsole('TX', JSON.stringify({ command: 'set_precision', decimals: dec }));
+            updateUI();
+        }
+
+        // Sampling Frequency Control
+        function updateInterval(val) {
+            state.samplingInterval = parseInt(val);
+            document.getElementById('interval-val').innerText = `${val} ms`;
+            startTelemetryLoop();
+            logConsole('TX', JSON.stringify({ command: 'set_sample_rate', ms: parseInt(val) }));
+        }
+
+        // LED Power Toggle
+        function toggleLed(enabled) {
+            state.isLedOn = enabled;
+            updateLedVisuals();
+            logConsole('TX', JSON.stringify({ command: 'set_led_power', state: enabled }));
+        }
+
+        // LED Brightness Slider
+        function updatePwm(val) {
+            state.ledBrightness = parseInt(val);
+            document.getElementById('pwm-val').innerText = `${val}%`;
+            updateLedVisuals();
+            logConsole('TX', JSON.stringify({ command: 'set_led_pwm', pwm: Math.round((val/100)*255) }));
+        }
+
+        // LED Color Picker
+        function setLedColor(hex) {
+            state.ledColor = hex;
+            document.getElementById('custom-color-picker').value = hex;
+            updateLedVisuals();
+            logConsole('TX', JSON.stringify({ command: 'set_led_color', hex: hex }));
+        }
+
+        // LED Mode Selector
+        function setLedMode(mode) {
+            state.ledMode = mode;
+            
+            const btnSolid = document.getElementById('mode-solid');
+            const btnPulse = document.getElementById('mode-pulse');
+            const btnWarn = document.getElementById('mode-warn');
+
+            const activeClass = "py-2 px-3 text-xs rounded-lg border border-blue-500/50 bg-blue-500/10 text-blue-400 font-medium transition-all";
+            const inactiveClass = "py-2 px-3 text-xs rounded-lg border border-slate-800 bg-slate-800/60 text-slate-400 font-medium hover:border-slate-700 transition-all";
+
+            btnSolid.className = mode === 'solid' ? activeClass : inactiveClass;
+            btnPulse.className = mode === 'pulse' ? activeClass : inactiveClass;
+            btnWarn.className = mode === 'temp-warn' ? activeClass : inactiveClass;
+
+            updateLedVisuals();
+            logConsole('TX', JSON.stringify({ command: 'set_led_mode', mode: mode }));
+        }
+
+        // Update LED Visual Box Style
+        function updateLedVisuals() {
+            const ledIndicator = document.getElementById('led-indicator');
+            const ledIcon = document.getElementById('led-icon');
+            const statusText = document.getElementById('led-status-text');
+
+            if (!state.isLedOn) {
+                ledIndicator.style.backgroundColor = '#1e293b';
+                ledIndicator.style.boxShadow = 'none';
+                ledIndicator.classList.remove('animate-led-pulse');
+                ledIcon.style.opacity = '0.2';
+                statusText.innerText = 'Power OFF';
+                return;
+            }
+
+            ledIcon.style.opacity = '1';
+            
+            // Adjust glowing opacity based on brightness slider
+            const alpha = state.ledBrightness / 100;
+            ledIndicator.style.backgroundColor = state.ledColor;
+            ledIndicator.style.boxShadow = `0 0 ${20 * alpha}px ${5 * alpha}px ${state.ledColor}`;
+
+            // Handle Pulse Mode
+            if (state.ledMode === 'pulse') {
+                ledIndicator.classList.add('animate-led-pulse');
+                statusText.innerText = `PULSE MODE • ${state.ledBrightness}% PWM`;
+            } else if (state.ledMode === 'temp-warn') {
+                ledIndicator.classList.remove('animate-led-pulse');
+                statusText.innerText = `AUTO TEMP WARN • ${state.ledBrightness}% PWM`;
+            } else {
+                ledIndicator.classList.remove('animate-led-pulse');
+                statusText.innerText = `SOLID • ${state.ledBrightness}% PWM`;
+            }
+        }
+
+        // Auto LED Warn logic based on current temperature
+        function handleTempWarningMode() {
+            if (state.temperatureC &gt; 28) {
+                state.ledColor = '#ef4444'; // Red for Hot
+            } else if (state.temperatureC &gt; 24) {
+                state.ledColor = '#f59e0b'; // Amber for Warm
+            } else {
+                state.ledColor = '#10b981'; // Green for Normal
+            }
+            updateLedVisuals();
+        }
+
+        // Developer Console Logging
+        function logConsole(direction, payload) {
+            if (state.logsPaused) return;
+
+            const consoleBox = document.getElementById('console-output');
+            const entry = document.createElement('div');
+            entry.className = 'flex items-start gap-2 leading-relaxed border-b border-slate-900/60 pb-1';
+
+            const timestamp = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', fractionalSecondDigits: 3 });
+
+            let tagColor = 'text-blue-400 bg-blue-500/10 border-blue-500/20';
+            if (direction === 'RX') tagColor = 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20';
+            if (direction === 'SYSTEM') tagColor = 'text-purple-400 bg-purple-500/10 border-purple-500/20';
+
+            entry.innerHTML = `
+                &lt;span class="text-slate-500 shrink-0 font-mono text-[11px]"&gt;${timestamp}&lt;/span&gt;
+                &lt;span class="px-1.5 py-0.2 text-[10px] rounded border ${tagColor} font-bold shrink-0"&gt;${direction}&lt;/span&gt;
+                &lt;span class="text-slate-300 break-all font-mono"&gt;${payload}&lt;/span&gt;
+            `;
+
+            consoleBox.appendChild(entry);
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        // Clear Terminal Console
+        function clearLogs() {
+            document.getElementById('console-output').innerHTML = '';
+            logConsole('SYSTEM', 'Console logs cleared.');
+        }
+
+        // Pause/Resume Logs
+        function toggleConsolePause() {
+            state.logsPaused = !state.logsPaused;
+            const pauseText = document.getElementById('pause-text');
+            const pauseIcon = document.getElementById('pause-icon');
+
+            if (state.logsPaused) {
+                pauseText.innerText = 'Resume';
+                pauseIcon.setAttribute('data-lucide', 'play');
+            } else {
+                pauseText.innerText = 'Pause';
+                pauseIcon.setAttribute('data-lucide', 'pause');
+            }
+            lucide.createIcons();
+        }
+
+        // Theme Toggle
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () =&gt; {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'sun');
+            } else {
+                html.classList.add('dark');
+                document.getElementById('theme-icon').setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/AIProtoWebSeerver.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 5. LLM-generated web server</figcaption>
+</figure>
+</div>
+<p>The webpage UI looked nice but is nonfunctional. The LLM-code set particular temperature values for the interface to display on loop, so whatever is displayed on the page is not true to the sensor reading and is not accurate to the ambient temperature. It did something similar for the LED state, where instead of actually communicating with the MCU to determine if the LED is on or off, it would just determine this based on how many times the button had been pressed without controlling any LED. Also, toggling the resolution buttons would actually do nothing for the sensor configuration.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Click to view LLM output for prompt 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre class="{c}"><code>#include "stm32l432xx.h"
+#include &lt;stdint.h&gt;
+
+/* Register Map Definitions */
+#define DS1722_READ_LSB_ADDR    0x01
+#define DS1722_READ_MSB_ADDR    0x02
+
+/**
+ * @brief  Blocking SPI transmit/receive of a single byte over STM32 SPI peripheral using CMSIS.
+ * @param  SPIx Pointer to SPI peripheral (e.g., SPI1)
+ * @param  tx_byte Byte to send over SPI
+ * @return Byte received over SPI
+ */
+static uint8_t SPI_TransferByte(SPI_TypeDef *SPIx, uint8_t tx_byte) {
+    /* Wait until TX register is empty (TXE flag) */
+    while (!(SPIx-&gt;SR &amp; SPI_SR_TXE));
+
+    /* Send byte via 8-bit access to DR register */
+    *(__IO uint8_t *)&amp;SPIx-&gt;DR = tx_byte;
+
+    /* Wait until RX FIFO has received data (RXNE flag) */
+    while (!(SPIx-&gt;SR &amp; SPI_SR_RXNE));
+
+    /* Read and return byte from RX FIFO */
+    return *(__IO uint8_t *)&amp;SPIx-&gt;DR;
+}
+
+/**
+ * @brief  Reads temperature from DS1722 sensor and returns value in degrees Celsius.
+ * 
+ * @param  SPIx      Pointer to initialized SPI peripheral (e.g., SPI1)
+ * @param  GPIOx_CS  GPIO Port for Chip Enable / Active High Select (e.g., GPIOA)
+ * @param  CS_Pin_Mask GPIO Pin Mask for Chip Enable (e.g., GPIO_ODR_OD5 or (1 &lt;&lt; 5))
+ * @return float Temperature reading in degrees Celsius
+ */
+float DS1722_ReadTemperature(SPI_TypeDef *SPIx, GPIO_TypeDef *GPIOx_CS, uint32_t CS_Pin_Mask) {
+    uint8_t lsb = 0;
+    uint8_t msb = 0;
+
+    /* Enable SPI peripheral if disabled */
+    if (!(SPIx-&gt;CR1 &amp; SPI_CR1_SPE)) {
+        SPIx-&gt;CR1 |= SPI_CR1_SPE;
+    }
+
+    /* 1. Assert CS HIGH (DS1722 uses Active-HIGH Chip Enable) */
+    GPIOx_CS-&gt;BSRR = CS_Pin_Mask;
+
+    /* 2. Send Read Address for LSB Register */
+    SPI_TransferByte(SPIx, DS1722_READ_LSB_ADDR);
+
+    /* 3. Read LSB byte (send dummy byte 0x00 to generate clock) */
+    lsb = SPI_TransferByte(SPIx, 0x00);
+
+    /* 4. Read MSB byte (address automatically increments or send dummy) */
+    msb = SPI_TransferByte(SPIx, 0x00);
+
+    /* 5. De-assert CS LOW */
+    GPIOx_CS-&gt;BRR = CS_Pin_Mask;
+
+    /* 6. Combine MSB and LSB into a 16-bit signed raw value */
+    int16_t raw_temp = (int16_t)((msb &lt;&lt; 8) | lsb);
+
+    /* 7. Convert two's complement raw value to degrees Celsius (1 LSB = 1/256 deg C = 0.00390625) */
+    return (float)raw_temp / 256.0f;
+}
+
+void SPI1_DS1722_Init(void) {
+    /* 1. Enable clocks for GPIOA and SPI1 */
+    RCC-&gt;AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC-&gt;APB2ENR |= RCC_APB2ENR_SPI1EN;
+
+    /* 2. Configure PA5 (SCK), PA6 (MISO), PA7 (MOSI) as Alternate Function (AF5) */
+    GPIOA-&gt;MODER &amp;= ~(GPIO_MODER_MODE5_Msk | GPIO_MODER_MODE6_Msk | GPIO_MODER_MODE7_Msk);
+    GPIOA-&gt;MODER |=  (GPIO_MODER_MODE5_1 | GPIO_MODER_MODE6_1 | GPIO_MODER_MODE7_1);
+    
+    GPIOA-&gt;AFR[0] &amp;= ~((0xF &lt;&lt; GPIO_AFRL_AFSEL5_Pos) | (0xF &lt;&lt; GPIO_AFRL_AFSEL6_Pos) | (0xF &lt;&lt; GPIO_AFRL_AFSEL7_Pos));
+    GPIOA-&gt;AFR[0] |=  ((5 &lt;&lt; GPIO_AFRL_AFSEL5_Pos) | (5 &lt;&lt; GPIO_AFRL_AFSEL6_Pos) | (5 &lt;&lt; GPIO_AFRL_AFSEL7_Pos));
+
+    /* 3. Configure PA4 as Software CS/CE (Output Mode, Active HIGH) */
+    GPIOA-&gt;MODER &amp;= ~GPIO_MODER_MODE4_Msk;
+    GPIOA-&gt;MODER |=  GPIO_MODER_MODE4_0;
+    GPIOA-&gt;BRR    =  GPIO_BRR_BR4; /* Default LOW */
+
+    /* 4. Configure SPI1 */
+    SPI1-&gt;CR1 = 0;
+    SPI1-&gt;CR1 |= SPI_CR1_MSTR;              /* Master Mode */
+    SPI1-&gt;CR1 |= SPI_CR1_CPHA;              /* CPHA = 1 (Data captured on 2nd edge) */
+    SPI1-&gt;CR1 |= (0x3 &lt;&lt; SPI_CR1_BR_Pos);   /* Baud Rate Prescaler = /16 */
+    SPI1-&gt;CR1 |= SPI_CR1_SSI | SPI_CR1_SSM; /* Software Slave Management */
+
+    /* 5. STM32L4 FIFO / Data size configuration (CR2) */
+    SPI1-&gt;CR2 = 0;
+    SPI1-&gt;CR2 |= (0x7 &lt;&lt; SPI_CR2_DS_Pos);   /* 8-bit Data Size */
+    SPI1-&gt;CR2 |= SPI_CR2_FRXTH;             /* FIFO threshold set to 8-bit (RXNE set when 8-bit rx) */
+
+    /* 6. Enable SPI */
+    SPI1-&gt;CR1 |= SPI_CR1_SPE;
+}</code></pre>
+</div>
+</div>
+</div>
+<p>The LLM-generated code did not work. Among other issues, I suspect it is because it kept thinking you had to write to the LSB address to generate a clock (as shown in its comments throughout the code)??? It was also using variables it hadn’t defined, such as <code>CS_Pin_Mask</code>, which was never given a value.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/natalieko2024\.github\.io\/E155-Portfolio\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
