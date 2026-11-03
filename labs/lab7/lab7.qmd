@@ -20,6 +20,8 @@ So after countless hours of debugging, I discussed my approach with Jessica Li, 
 
 ![Figure 1. Finite State Machine](images/lab7fsm.jpg)
 
+During the continue state, everything shifts. Round increments, the output text becomes a new input text, and the old key is the new selected key. The delay state is there to ensure everything is delayed by a clock cycle, and also so that round doesn't change while the elements in the datapath are running (otherwise I would have a cursed expanded key etc etc).
+
 ## Technical Documentation
 The source code for the project can be found in the associated [GitHub repository](https://github.com/natalieko2024/E155-Labs/tree/main/E155-Lab6).
 
