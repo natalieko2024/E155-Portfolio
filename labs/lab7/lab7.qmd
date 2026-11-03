@@ -216,3 +216,7 @@ module key_expansion #(
 endmodule
 ```
 :::
+
+When I gave the LLM the AES manual, the code it generated was a lot more clean and readable and kind of looks like what I wrote which is a little scary. I think it could tell what the bigger picture of AES was and could write keyexpansion in a way that would fit with the other AES modules. The LLM output that didn't have AES as a constant seemed a lot more convoluted, since it parametrized everything. It used giant for loops for everything. I think since it didn't know this would be deployed with AES, it assumed both the key size and number of rounds affected almost every single line of code, whereas with the AES implementation they're fixed.
+
+Overall both outputs are pretty good, the only errors/warnings that appeared were that the "given modules" couldn't be found, which is a non-issue. For deployment within AES, the LLM output that was given AES as context is definitely better since it's more compact and less complex.
